@@ -1,13 +1,26 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+var QQMapWX = require('../../lib/qqmap-wx-jssdk.js');
+var qqmapsdk;
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    avatarUrl:'',
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    thisCity: '',//当前城市
+    range: "",//配送范围
+    shapLocation: '',//商铺坐标
+    siteData: [],//地址列表
+    vague: [],//关键词输入提示
+    scale: 16,//缩放级别
+    latitude: '',
+    longitude: '',
+    markers: [],
+    listIndex: "0",//选择地址
+    hasMarker: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -16,39 +29,72 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
+    qqmapsdk = new QQMapWX({
+      key: 'IMJBZ-LVYLU-ZJ3VP-2Q77A-EIRY7-VTBFO'
+    });
+    var that = this;
+    app.getLocal(that);
+    this.startLocalHeart();
+    this.getUserInfo();
+    
+
+  },
+  getUserInfo() {
+    var that = this;
+    wx.getUserInfo({
+      success: res => {
+        app.globalData.userInfo = res.userInfo
+        that.setData({
           userInfo: res.userInfo,
-          hasUserInfo: true
+          hasUserInfo: true,
+        })
+        that.getAvatarImage(res.userInfo.avatarUrl);
+      }
+    })
+  },
+  getAvatarImage: function (avatarUrl){
+    var that = this;
+    console.log(avatarUrl);
+    wx.downloadFile({
+      url:avatarUrl,
+      success: function (res)  {
+        var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
+        that.setData({
+          avatarUrl: cachePath
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    }) 
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  setMarkers() {
+    var markers = [{
+      iconPath: this.data.avatarUrl,
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      height: 50,
+      width: 50,
+      id: 0,
+      callout: { 
+        content: this.data.userInfo.nickName, 
+        color: "#FFFFFF", 
+        fontSize: 18, 
+        borderRadius: 20, 
+        bgColor: "#FF0066", 
+        padding: 5, 
+        display: 'ALWAYS' 
+        }
+    }]
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      hasMarker: true,
+      markers: markers
     })
-  }
+    console.log(this.data.hasMarker);
+  },
+  startLocalHeart() {
+    var that = this;
+    var timerTem = setInterval(function () {
+      console.log("----success----0");
+      app.getLocal(that);
+      that.setMarkers();
+    }, 2000)
+  },
 })
