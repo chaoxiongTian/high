@@ -20,7 +20,8 @@ Page({
     longitude: '',
     markers: [],
     listIndex: "0",//选择地址
-    hasMarker: false
+    hasMarker: false,
+    hasAvatar: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -36,8 +37,6 @@ Page({
     app.getLocal(that);
     this.startLocalHeart();
     this.getUserInfo();
-    
-
   },
   getUserInfo() {
     var that = this;
@@ -60,8 +59,10 @@ Page({
       success: function (res)  {
         var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
         that.setData({
-          avatarUrl: cachePath
+          avatarUrl: cachePath,
+          hasAvatar: true
         })
+
       }
     }) 
   },
@@ -88,6 +89,7 @@ Page({
       markers: markers
     })
     console.log(this.data.hasMarker);
+    console.log(this.data.hasAvatar);
   },
   startLocalHeart() {
     var that = this;
