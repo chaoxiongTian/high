@@ -21,7 +21,8 @@ Page({
     markers: [],
     listIndex: "0",//选择地址
     hasMarker: false,
-    hasAvatar: false
+    hasAvatar: false,
+    shareBtnTop:10,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -37,6 +38,12 @@ Page({
     app.getLocal(that);
     this.startLocalHeart();
     this.getUserInfo();
+    this.setShareBtn();
+  },
+  setShareBtn() {
+    this.setData({
+      shareBtnTop: wx.getSystemInfoSync().statusBarHeight + 6
+    })
   },
   getUserInfo() {
     var that = this;
