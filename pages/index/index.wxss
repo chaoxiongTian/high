@@ -35,3 +35,65 @@
   font-family: Arial;
   z-index: 1000;
 }
+
+#avaterList {
+  left:100px;
+  right: 100px;
+  bottom: 20px;
+  position: absolute;
+  height: 60px;
+  font-size: 14px;
+  text-align: center;
+  font-family: Arial;
+  z-index: 1000;
+  padding: 0;
+}
+
+#avaterLeft {
+  margin-right: 10px;
+  margin-bottom: 11px;
+  background-color: white;
+  height: 38px;
+  width: 38px;
+  border-radius: 19px;
+  display: inline-block;
+}
+
+#avaterMid {
+  margin:0 auto;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 30px;
+  display: inline-block;
+}
+
+#avaterRight {
+  margin-left: 10px;
+  margin-bottom: 11px;
+  background-color: white;
+  height: 38px;
+  width: 38px;
+  border-radius: 19px;
+  display: inline-block;
+}
+
+#actionBtn {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0; 
+  bottom: 100px; 
+  position: absolute;
+  width: 120px;
+  height: 34px;
+  padding: 0px;
+  font: 20px;
+  line-height:34px;
+  text-align:center;
+  vertical-align: middle;
+  color: white;
+  border-radius: 17px;
+  background-color: rgb(255,64,129);
+  z-index: 1000;
+}

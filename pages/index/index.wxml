@@ -4,4 +4,10 @@
   </map>
   <button id='buttonLeft'></button>
   <button id='buttonRight'></button>
+  <view id='avaterList'>
+    <view id='avaterLeft'></view>
+    <view id='avaterMid'></view>
+    <view id='avaterRight'></view>
+  </view>
+  <button id='actionBtn'>找人玩</button>
 </view>

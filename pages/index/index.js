@@ -79,7 +79,7 @@ Page({
         color: "#FFFFFF", 
         fontSize: 18, 
         borderRadius: 20, 
-        bgColor: "#FF0066", 
+        bgColor: "#FF4081", 
         padding: 5, 
         display: 'ALWAYS' 
         }
