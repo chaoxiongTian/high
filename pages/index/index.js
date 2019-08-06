@@ -104,6 +104,9 @@ Page({
       console.log("----success----0");
       app.getLocal(that);
       that.setMarkers();
+      if(!that.data.hasMarker){
+        that.getUserInfo();
+      }
     }, 2000)
   },
 })
