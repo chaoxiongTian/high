@@ -55,6 +55,9 @@ Page({
   },
   tapAction() {
     console.log("actionBtn");
+    wx.reLaunch({
+      url: '../invite/invite',
+    })
   },
   tapFriend(){
     console.log("friends");

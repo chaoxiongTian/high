@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/action_edit/action_edit",
-    "pages/friends/randomFriends"
+    "pages/friends/randomFriends",
+    "pages/invite/invite"
   ],
   "window": {
     "backgroundTextStyle": "light",

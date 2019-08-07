@@ -1,0 +1,10 @@
+<view id="mainView">
+  <!-- <button id="backBtn" bindtap="onTapBack"></button> -->
+  <text id="page_title">一起玩什么</text>
+  <view id="inviteCard">
+    <text id="title">玩\n</text>
+    <text id="time_text">8月4日\t周日\t11:45\n</text>
+    <text id="position_name">深圳腾讯滨海大厦\n</text>
+    <text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处\n</text>
+  </view>
+</view>
