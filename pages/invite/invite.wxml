@@ -1,15 +1,19 @@
-<view id="mainView">
-  <!-- <button id="backBtn" bindtap="onTapBack"></button> -->
-  <text id="page_title">一起玩什么</text>
-  <view id="inviteCard">
-    <text id="title">玩\n</text>
-    <text id="time_text">8月4日\t周日\t11:45\n</text>
-    <text id="position_name">深圳腾讯滨海大厦\n</text>
-    <text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处\n</text>
+<view id="mainView" style="flex-direction:column; display: flex;">
+
+  <view class="top_bar" style="flex-direction:row; display: flex;">
+    <view><button bindtap="onTapBack">返回</button></view>
+    <view><text id="page_title">一起玩什么</text></view>
   </view>
 
-  <view>
-    <button id="find_it" class="round_btn">找ta玩\n</button>
-    <button id="edit_metting" class="round_btn">编辑见面\n</button>
+  <view id="inviteCard" style="flex-direction:column; display: flex;">
+    <view><text id="title">玩</text></view>
+    <view><text id="time_text">8月4日\t周日\t11:45</text></view>
+    <view><text id="position_name">深圳腾讯滨海大厦</text></view>
+    <view><text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处</text></view>
+  </view>
+
+  <view style="flex-direction:column; display: flex;">
+    <view><button id="find_it" class="round_btn">找ta玩</button></view>
+    <view><button id="edit_metting" class="round_btn">编辑见面</button></view>
   </view>
 </view>

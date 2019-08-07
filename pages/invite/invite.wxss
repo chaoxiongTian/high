@@ -3,9 +3,8 @@ page{
   width: 100%;
 }
 #mainView {
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
@@ -13,13 +12,15 @@ page{
   z-index: 100;
   background-color:rgba(196, 196, 196, 0.1);
 }
+.top_bar{
+  margin-top:30rpx;
+}
 #inviteCard {
-  position: absolute;
-  width: 280px;
-  height: 250px;
-  top: 50px;
-  margin: 20px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 8px 12px 0 rgba(0, 0, 0, 0.19);
+  width: 700rpx;
+  height: 250rpx;
+  margin: auto;
+  margin-top: 50rpx;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   background: white;
 }
 #page_title{
