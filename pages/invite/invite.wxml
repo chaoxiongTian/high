@@ -7,4 +7,9 @@
     <text id="position_name">深圳腾讯滨海大厦\n</text>
     <text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处\n</text>
   </view>
+
+  <view>
+    <button id="find_it" class="round_btn">找ta玩\n</button>
+    <button id="edit_metting" class="round_btn">编辑见面\n</button>
+  </view>
 </view>

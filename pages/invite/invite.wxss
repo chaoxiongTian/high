@@ -52,3 +52,15 @@ page{
   color: rgba(177, 177, 177, 0.8);
   text-align: center;
 }
+.round_btn{
+  position: absolute;
+  margin: auto;
+}
+
+#find_it {
+
+}
+
+#edit_metting{
+
+}
