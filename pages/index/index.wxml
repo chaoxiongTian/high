@@ -1,17 +1,18 @@
 <!--index.wxml-->
-<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="width:100%;height:100vh" id="authorBtn">
-  <view id="authorText">获取用户信息</view>
-</button>
-<view id='mainView' wx:else>
-  <map id="myMap" markers="{{markers}}" style="width:100%;height:100vh;z-index:700" longitude="{{longitude}}" latitude="{{latitude}}" scale='18' wx:if="{{hasMarker&&hasAvatar}}">
+<view id='mainView'>
+  <map id="myMap" markers="{{markers}}" style="width:100%;height:100vh;z-index:100" longitude="{{longitude}}" latitude="{{latitude}}" scale='18' wx:if="{{hasMarker&&hasAvatar}}">
   </map>
-  <button id='shareBtn' style="top:{{shareBtnTop}}px"></button>
-  <button id='buttonLeft'></button>
-  <button id='buttonRight'></button>
-  <view id='avaterList'>
+  <button id='shareBtn' style="top:{{shareBtnTop}}px" bindtap="tapShare"></button>
+  <button id='buttonLeft' bindtap="tapList"></button>
+  <button id='buttonRight' bindtap="tapRandom"></button>
+  <view id='avaterList' bindtap="tapFriend">
     <view id='avaterLeft'></view>
     <view id='avaterMid'></view>
     <view id='avaterRight'></view>
   </view>
-  <button id='actionBtn'>找人玩</button>
+  <button id='actionBtn' bindtap="tapAction">找人玩</button>
 </view>
+
+<button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="z-index:{{zIndex}}" id="authorBtn">
+  <view id="authorText">获取用户信息</view>
+</button>
