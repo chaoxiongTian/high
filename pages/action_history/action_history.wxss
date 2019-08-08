@@ -1,0 +1,142 @@
+.page-wrapper {
+  margin: 0;
+  font-size: 28rpx;
+  line-height: 1.5;
+  color: #333;
+  background-color: #efefef;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: transparent;
+  min-height:2000rpx;
+}
+
+.action-list .action-list-item {
+  top: 100rpx;
+  position: relative;
+  height: 360rpx;
+  background-color: #fff; 
+  margin: 16rpx 0;
+  border: 2rpx solid #e5e5e5;
+  border-width: 2rpx 0;
+}
+
+.action-list .action-list-item::before,.action-list .action-list-item::after {
+  position: absolute;
+  left: 200rpx;
+  content: '';
+  width: 24rpx;
+  height: 12rpx;
+  background-color: #efefef;
+  border: 2rpx solid #e5e5e5;
+}
+
+.action-list .action-list-item::before {
+  border-radius: 0 0 60rpx 60rpx;
+  border-top: none;
+  top: -2rpx;
+}
+
+.action-list .action-list-item::after {
+  border-radius: 60rpx 60rpx 0 0;
+  border-bottom: none;
+  bottom: -2rpx;
+}
+
+.action-list .action-list-item .theme {
+  position: absolute;
+  left: 30rpx;
+  width: 185rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 35rpx 0;
+  color: #000000;
+  text-align: center;
+  font-size: 40rpx;
+  font-family: Msyh;
+  border-right: 2rpx dashed #e5e5e5;
+}
+
+.action-list .action-list-item .time {
+  position: absolute;
+  left: 40rpx;
+  width: 800rpx;
+  height: 400rpx;
+  line-height: 300rpx;
+  margin: 30rpx 0;
+  color: #000000;
+  text-align: left;
+  font-size: 35rpx;
+  font-family: Msyh;
+}
+
+.action-list .action-list-item .location {
+  position: absolute;
+  left: 40rpx;
+  width: 800rpx;
+  height: 400rpx;
+  line-height: 400rpx;
+  margin: 30rpx 0;
+  color: #000000;
+  text-align: left;
+  font-size: 35rpx;
+  font-family: Msyh;
+}
+
+.action-list .action-list-item .address {
+  position: absolute;
+  left: 40rpx; 
+  width: 800rpx;
+  height: 400rpx;
+  line-height: 500rpx;
+  margin: 30rpx 0;
+  color: #e0e5e5;
+  text-align: left;
+  font-size: 25rpx;
+  font-family: Msyh;
+}
+
+.action-list .action-list-item .avatar0{
+  position: absolute;
+  top: 20px;
+  left: 120px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+.action-list .action-list-item .avatar1{
+  position: absolute;
+  top: 20px;
+  left: 160px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+.action-list .action-list-item .avatar2{
+  position: absolute;
+  top: 20px;
+  left: 200px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+.action-list .action-list-item .avatar3{
+  position: absolute;
+  top: 20px;
+  left: 240px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+.action-list .action-list-item .finished{
+  position: relative;
+  top: 80px;
+  left: 280px;
+  height: 80px;
+  width: 80px;
+  border-radius: 25px;
+  transform: rotate(330deg)
+}

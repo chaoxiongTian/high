@@ -1,8 +1,11 @@
 {
   "pages": [
+    
     "pages/index/index",
     "pages/logs/logs",
-    "pages/action_edit/action_edit"
+    "pages/action_edit/action_edit",
+    "pages/action_history/action_history"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
