@@ -23,6 +23,7 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
+    randomID:'test'
   },
   //事件处理函数
   bindViewTap: function() {
@@ -48,9 +49,10 @@ Page({
     console.log("actionList");
   },
   tapRandom() {
-    console.log("randomFriend");
+    var addUrl = '../friends/randomFriends?id=' + this.data.randomID;
+    console.log(addUrl);
     wx.reLaunch({
-      url: '../friends/randomFriends', 
+      url: addUrl, 
     })
   },
   tapAction() {

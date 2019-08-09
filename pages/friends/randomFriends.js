@@ -17,6 +17,8 @@ Page({
     userInfo: {},
     avatarUrl: '',
     shareBtnTop: 10,
+    userID:'',
+    randomID:'ttttt',
   },
 
   /**
@@ -31,6 +33,10 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setBackBtn();
+    this.setData ({
+      userID:options.id,
+    });
+    console.log(this.data.userID);
   },
   tapBack(){
     wx.reLaunch({
@@ -38,7 +44,11 @@ Page({
     })
   },
   tapRandom(){
-    console.log("tapRandom");
+    var addUrl = 'randomFriends?id=' + this.data.randomID;
+    console.log(addUrl);
+    wx.reLaunch({
+      url: addUrl,
+    })
   },
   tapAction(){
     console.log("actions");
