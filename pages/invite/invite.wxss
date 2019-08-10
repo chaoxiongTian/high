@@ -107,5 +107,37 @@ page{
 
 #join_peoples{
   width: 100%;
+  display:flex;
+  flex-direction:row;
+  white-space:nowrap;
+}
+
+
+.item{
+  display: inline-block;
+  margin-right: 20rpx;
+  width: calc(100% / 3);
+  height: 100rpx;
+  background: #ff00ff;
+}
+
+.scrollView{
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.join_peoples_item {
   
+}
+
+.itemContainer{
+  margin: 0 auto;
+  display: flex;
+  flex-direction:row;
+  flex: 0 1 30;
+  width: 70%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
