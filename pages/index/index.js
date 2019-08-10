@@ -23,7 +23,10 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
-    randomID:'test'
+    randomID:'test',
+    hasAction: true,
+    actionId:'testID',
+    btnText:"找人玩",
   },
   //事件处理函数
   bindViewTap: function() {
@@ -56,6 +59,19 @@ Page({
     })
   },
   tapAction() {
+    if (this.data.hasAction) {
+      var addUrl = '../invite/invite?id=' + this.data.actionId;
+      console.log(addUrl);
+      wx.reLaunch({
+        url: addUrl,
+      })
+    } else {
+      var addUrl = '../action_edit/action_edit';
+      console.log(addUrl);
+      wx.reLaunch({
+        url: addUrl,
+      })
+    }
     console.log("actionBtn");
   },
   tapFriend(){

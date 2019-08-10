@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/action_edit/action_edit",
+    "pages/action_history/action_history",
     "pages/friends/randomFriends",
+    "pages/action_edit/action_edit_time_select/action_edit_time_select",
     "pages/invite/invite"
   ],
   "window": {

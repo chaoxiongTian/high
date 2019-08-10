@@ -1,2 +1,52 @@
 <!--pages/action_edit/action_edit.wxml-->
-<text>pages/action_edit/action_edit.wxml</text>
+<view>
+  <view class='action_edit_title'>想找人玩</view>
+ <view class="play">
+  <view class="play-content">
+    <view class="play-item">
+      <view class="play-item-title">
+        <image src="image/flag.png"></image>
+        <input class="align-left" maxlength="10" placeholder="游玩主题" />
+      </view>
+    </view>
+    <view class="play-item" catchtap="time_select_click">
+      <view class="play-item-title"  >
+        <image src="image/time.png"></image>
+        <view class="align-left">时间</view>
+      </view>
+      <view class="play-item-desc">
+        <view>8月3日</view>
+        <view class="align-left">周六</view>
+        <view class="align-left">11:45</view>
+        <image src="image/right.png"></image>
+      </view>
+    </view>
+    <view class="play-item">
+      <view class="play-item-title">
+        <image src="image/area.png"></image>
+        <view class="align-left">地点</view>
+      </view>
+      <view class="play-item-desc">
+        <image src="image/right.png"></image>
+      </view>
+    </view>
+    <view class="play-item">
+      <view class="play-item-title">
+        <image src="image/tips.png"></image>
+        <view class="align-left">提醒</view>
+      </view>
+      <view class="play-item-desc">
+        <image src="image/right.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="play-remark">
+    <textarea placeholder="填写备注（选填）" auto-height />
+  </view>
+</view>
+
+<view class="btn-area">
+  <button bindtap="bindButtonTap">发起邀请</button>
+</view>
+</view>

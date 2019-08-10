@@ -1,0 +1,21 @@
+<view class="page-wrapper ">
+  <view class="action-list js_action_list ">
+    <view class="actions">
+      <block wx:for="{{actionList}}" wx:for-item="actionItem" wx:key="unique">
+        <view data-supplierid = "{{actionItem.id}}" data-key="" class = "action-list-item" bindtap="onClickAction">
+          <view class="theme">{{actionItem.theme}}</view>
+          <view class="participants">
+            <block wx:for="{{actionItem.participants}}" wx:for-item="userItem" wx:key="unique">
+              <image class = "avatar{{index}}" src='{{userItem.avatar}}' mode='aspectFill'></image>
+            </block>
+          </view>
+          <view class="time">{{actionItem.time}}</view>
+          <view class="location">{{actionItem.location}}</view>
+          <view class="address">{{actionItem.address}}</view>
+          <view wx:if ="{{actionItem.status==true}}"><image class = "finished" src='../../img/finished.png' mode ='aspectFill'></image>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
