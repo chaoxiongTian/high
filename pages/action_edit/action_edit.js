@@ -20,6 +20,7 @@ Page({
     location_name:"",
     time:null,
     remind_time: 0,
+    timestamp: "",
   },
 
   /**
@@ -46,7 +47,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    console.log('123123',this.data.timestamp)
   },
 
   /**

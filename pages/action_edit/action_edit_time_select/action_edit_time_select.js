@@ -22,7 +22,7 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.push(i)
 }
-for (let i = 1; i <= 24; i++) {
+for (let i = 0; i <= 23; i++) {
   hours.push(i)
 }
 for (let i = 0; i <= 59; i++) {
@@ -47,11 +47,21 @@ Page({
     }
 
     let curTime = `${this.data.year}年${this.data.month}月${this.data.day}日 ${this.data.hour}:${this.data.minute}`;
+    
 
+    if (this.data.month < 10) {
+
+    }
+  
+    let time = `${this.data.year}-${this.data.month < 10 ? '0' + this.data.month : this.data.month}-${this.data.day < 10 ? '0' + this.data.day : this.data.day}T${this.data.hour < 10 ? '0' + this.data.hour : this.data.hour}:${this.data.minute < 10?'0' + this.data.minute: this.data.minute}:00`
+    var date = new Date(time);
+    let timestamp = date.getTime();
+    console.log('!!!!!', time,date, timestamp)
     if (prevPage) {
       console.log('1111')
       prevPage.setData({
-        time: curTime
+        time: curTime,
+        timestamp: timestamp
       });
     }
     
