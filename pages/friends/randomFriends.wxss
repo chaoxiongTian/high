@@ -26,6 +26,11 @@
   border-radius: 30px;
   z-index: 1000;
 }
+#buttonImg {
+  height: 26px;
+  width: 26px;
+  margin: 17px;
+}
 
 #actionBtn {
   margin-left: auto;
