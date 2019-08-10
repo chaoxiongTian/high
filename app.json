@@ -6,7 +6,8 @@
     "pages/action_history/action_history",
     "pages/friends/randomFriends",
     "pages/action_edit/action_edit_time_select/action_edit_time_select",
-    "pages/invite/invite"
+    "pages/invite/invite",
+    "pages/action_edit/action_edit_remind/action_edit_remind"
   ],
   "window": {
     "backgroundTextStyle": "light",

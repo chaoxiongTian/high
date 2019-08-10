@@ -15,20 +15,21 @@
         <view class="align-left">时间</view>
       </view>
       <view class="play-item-desc">
-        <view>{{time}}</view>
+        <view class="text-show">{{time}}</view>
         <image src="image/right.png"></image>
       </view>
     </view>
-    <view class="play-item">
+    <view class="play-item" catchtap="location_select_click">
       <view class="play-item-title">
         <image src="image/area.png"></image>
         <view class="align-left">地点</view>
       </view>
       <view class="play-item-desc">
+        <view class="text-show">{{location_name}}</view>
         <image src="image/right.png"></image>
       </view>
     </view>
-    <view class="play-item">
+    <view class="play-item" catchtap="remind_select_click">
       <view class="play-item-title">
         <image src="image/tips.png"></image>
         <view class="align-left">提醒</view>

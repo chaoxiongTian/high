@@ -1,12 +1,23 @@
 // pages/action_edit/action_edit.js
 var util = require('../utils/util.js');
+const date = new Date()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    activityTitle:null,
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    address:null,
+    errMsg:null,
+    latitude:null,
+    longitude:null,
+    location_name:null,
   },
 
   /**
@@ -72,6 +83,29 @@ Page({
   time_select_click: function (event) {
     wx.navigateTo({
       url: 'action_edit_time_select/action_edit_time_select'
+    })
+  },
+  remind_select_click: function (event) {
+    wx.navigateTo({
+      url: 'action_edit_remind/action_edit_remind'
+    })
+  },
+  location_select_click: function (event) {
+    // wx.navigateTo({
+    //   url: 'action_edit_time_select/action_edit_time_select'
+    // })
+    var that = this;
+    wx.chooseLocation({
+      success:function (res) {
+        console.log(res)
+        that.setData({
+          address:res.address,
+          errMsg: res.errMsg,
+          latitude: res.latitude,
+          longitude: res.longitude,
+          location_name: res.name,
+        })
+      }
     })
   },
 })

@@ -24,7 +24,7 @@ Page({
     hasAvatar: false,
     shareBtnTop:10,
     randomID:'test',
-    hasAction: true,
+    hasAction: false,
     actionId:'testID',
     btnText:"找人玩",
   },
