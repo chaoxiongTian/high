@@ -1,6 +1,6 @@
   <view class="page-body"> 
     <view class="selected-date">{{remind_time}}分钟</view> 
-    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" > 
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange"> 
     
       <picker-view-column> 
         <view wx:for="{{remind_times}}" wx:key="{{remind_times}}" style="line-height: 50px; text-align: center;">{{item}}分钟</view> 
