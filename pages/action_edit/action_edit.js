@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  time_select_click: function (event) {
+    wx.navigateTo({
+      url: 'action_edit_time_select/action_edit_time_select'
+    })
+  },
 })

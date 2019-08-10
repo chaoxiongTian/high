@@ -1,12 +1,9 @@
 /* pages/action_edit/action_edit.wxss */
-.root_container{
-  width: 80%;
-  height: 70%;
-  display:flex;
-  justify-content:center;
-  flex-direction:column;
+page{
+  background: #EFEFEF;
+  box-sizing: border-box;
+  padding:  0 24rpx;
 }
-
 .action_edit_title{
   margin-top: 54rpx;
   margin-left: 300rpx;
@@ -19,13 +16,11 @@
   margin: 30px;
   text-align: center;
 }
-page{
-  background: #EFEFEF;
-  box-sizing: border-box;
-  padding:  0 24rpx;
+.align-left{
+  margin-left: 20rpx;
 }
 .play-content{
-  margin-top: 80rpx;
+  margin-top: 60rpx;
   border-radius: 12rpx;
   overflow: hidden;
   box-shadow: 0 4rpx 16rpx #ccc;

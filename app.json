@@ -2,8 +2,9 @@
   "pages": [
     "pages/action_edit/action_edit",
     "pages/index/index",
-    "pages/logs/logs", 
-    "pages/friends/randomFriends"
+    "pages/logs/logs",
+    "pages/friends/randomFriends",
+    "pages/action_edit/action_edit_time_select/action_edit_time_select"
   ],
   "window": {
     "backgroundTextStyle": "light",
