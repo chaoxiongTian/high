@@ -1,0 +1,32 @@
+<view id="mainView" style="flex-direction:column; display: block;">
+
+  <view class="top_bar" style="flex-direction:row; display: flex; height:100rpx; width:100%;">
+    <view><image class="back_icon" src="image/back.png" bindtap="onTapBack"> 返回</image></view>
+    <view id="page_title">一起玩什么</view>
+  </view>
+
+  <view id="inviteCard" style="flex-direction:column; display: flex;">
+
+    <view style="flex:1; width:100%; margin-top:20rpx">
+      <view><text id="title">玩</text></view>
+      <view><text id="time_text">8月4日\t周日\t11:45</text></view>
+      <view><text id="position_name">深圳腾讯滨海大厦</text></view>
+      <view><text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处</text></view>
+    </view>
+
+    <map class="inner_map">
+        <cover-view class="map_cover" style="width:100%; height:100%"></cover-view>
+    </map>
+
+  </view>
+
+  <button id="find_it" class="round_btn">找ta玩</button>
+  <button id="edit_metting" class="round_btn">编辑见面</button>
+
+  <text class="people_num">- {{peopleNum}}人参与 -</text>
+
+  <scroll-view id="join_peoples" scroll-x="true" style="width:100%">
+    
+  </scroll-view>
+  
+</view>
