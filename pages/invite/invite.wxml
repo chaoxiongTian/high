@@ -25,11 +25,21 @@
 
   <text class="people_num">- {{peopleNum}}人参与 -</text>
 
-  <scroll-view id="join_peoples" scroll-x="true" style="width:100%">
-    <view wx:for="{{personArray}}" style="flex-direction:row; display:flex;">
+  <!-- <scroll-view enable-flex id="join_peoples" scroll-x="true">
+    <view class="join_peoples_item" wx:for="{{personArray}}" style="flex-direction:column; display:flex;flex:0 1 auto" >
       <image class="avatar_img" src="{{item.avatarUrl}}"></image>
       <text class="user_name">{{item.userName}}</text>
     </view>
+  </scroll-view> -->
+
+  <scroll-view scroll-x id="join_peoples" class="scrollView">
+    <view class="itemContainer" >
+      <view class="join_peoples_item" wx:for="{{personArray}}" wx:key="{{index}}" style="flex-direction:column; display:flex;">
+        <image class="avatar_img" src="{{item.avatarUrl}}"></image>
+        <text class="user_name">{{item.userName}}</text>
+      </view>
+    </view>
   </scroll-view>
+
   
 </view>
