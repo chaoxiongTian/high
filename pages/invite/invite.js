@@ -55,7 +55,8 @@ Page({
           isOwner: res.data.isOwner;
           joinUserArray: res.data.users;
           joinUserNum: joinUserArray.length;
-          transTimeMillToString();
+          that.transTimeMillToString();
+          that.transUsersAvatar();
         } else {
           console.log("invite.js getAction error : " + res.statusCode)
         }
@@ -71,6 +72,8 @@ Page({
             })
           }
         })
+        actionTime:(new Date()).getUTCMilliseconds
+        that.transTimeMillToString()
         isOwner:true
         joinUserArray: [
           { avatar:"https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname:"小明"},
@@ -165,7 +168,7 @@ Page({
 
   transTimeMillToString: function () {
     var date = (new Date(actionTime))
-    actionTimeString: date.getMonth()+1 + "月" +  date.getDate() + "日 周" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes()
+    actionTimeString: `${(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)}月${date.getDate()}日 周${date.getDay()}  ${date.getHours()}:${date.getMinutes()}`
   },
 
   transUsersAvatar: function() {
