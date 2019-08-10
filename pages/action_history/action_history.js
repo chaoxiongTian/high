@@ -10,25 +10,42 @@ Page({
   },
 
   onLoad: function () {
+    this.onRequestData();
+  },
+
+  onClickAction: function (e) {
+    var next_url = '../invite/invite?id=' + e.currentTarget.dataset.supplierid;
+    wx.navigateTo({
+      url:next_url
+    })
+    console.log("action id:" + e.currentTarget.dataset.supplierid);
+  },
+
+  onRequestData:function(){
+    //请求数据
     var that = this;
     var userInfo = new Array();
     console.log('in list view')
     console.log(app.globalData.userOpenId);
     var user1 = {
       "id": 1,
-      "avatar": '../../img/avatar1.jpg'
+      "avatar": 'https://img2.woyaogexing.com/2019/08/09/45d6df80f5cb46ad99a99368f3829ac5!400x400.jpeg',
+      "show":false
     };
     var user2 = {
       "id": 2,
-      "avatar": '../../img/avatar2.jpg'
+      "avatar": 'https://img2.woyaogexing.com/2019/08/09/6f4620051985427c910e76447fed9862!400x400.jpeg',
+      "show": false
     };
     var user3 = {
       "id": 3,
-      "avatar": '../../img/avatar3.jpg',
+      "avatar": 'https://img2.woyaogexing.com/2019/08/09/eeb3c242170447dfa3e58ba6b7be88d5!400x400.jpeg',
+      "show": false
     };
     var user4 = {
       "id": 4,
-      "avatar": '../../img/ellipsis.jpg',
+      "avatar": 'https://img2.woyaogexing.com/2019/08/09/0bc9f4ca84134c739e910a78d5f08f26!400x400.jpeg',
+      "show": false
     };
     userInfo.push(user1);
     userInfo.push(user2);
@@ -43,7 +60,8 @@ Page({
       "location": "中影南方影城（科技园店）",
       "address": "广东省深圳市南山区科兴路10号科技园文化广场3层",
       "participants": userInfo,
-      "status": true
+      "status": true,
+      "shouldEllipsis":false
     }
 
     var action2 = {
@@ -53,7 +71,8 @@ Page({
       "location": "竹乡味（海王银河科技大厦店）",
       "address": "广东省深圳市南山区科技中三路1号海王银河科技大厦4层",
       "participants": userInfo,
-      "status": false
+      "status": false,
+      "shouldEllipsis": false
     }
 
     var action3 = {
@@ -63,12 +82,33 @@ Page({
       "location": "利歌宴自助式KTV（天利名城店）",
       "address": "广东省深圳市南山区海德三道85号天利名城购物中心F4层L4-01",
       "participants": userInfo,
-      "status": false
+      "status": false,
+      "shouldEllipsis": false
     }
 
     actionInfo.push(action1);
     actionInfo.push(action2);
     actionInfo.push(action3);
+
+    console.log(actionInfo);
+
+    actionInfo.forEach((action, action_index, array) => {
+      action.participants.forEach((user, user_index,array) => {
+        if (user_index < 3){
+          this.getAvatarImage(user.avatar);
+          user.show = true;
+        }
+        else{
+          user.show = false;
+        }
+      })
+      if (this.userNum(action.participants) > 3) {
+        action.shouldEllipsis = true;
+      }
+      else {
+        action.shouldEllipsis = false;
+      }
+    })
 
     wx.getSystemInfo({
       success: function (res) {
@@ -79,12 +119,27 @@ Page({
     })
   },
 
-  onClickAction: function (e) {
-    var next_url = '../invite/invite?id=' + e.currentTarget.dataset.supplierid;
-    wx.navigateTo({
-      url:next_url
+  getAvatarImage: function (avatarUrl) {
+    var that = this;
+    console.log(avatarUrl);
+    wx.downloadFile({
+      url: avatarUrl,
+      success: function (res) {
+        var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
+        that.setData({
+          avatarUrl: cachePath,
+          hasAvatar: true
+        })
+      }
     })
-    console.log("action id:" + e.currentTarget.dataset.supplierid);
+  },
+
+  userNum:function(users){
+    var counter = 0;
+    for(var x in users){
+      counter++;
+    }
+    return counter;
   },
 
   onShow: function () {

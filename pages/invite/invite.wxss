@@ -38,7 +38,7 @@ page{
   margin-left: 16px;
   line-height: 25px;
   padding-top: 20px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
 }
 #time_text{
@@ -60,13 +60,22 @@ page{
   color: rgba(177, 177, 177, 0.8);
   text-align: center;
 }
-.round_btn{
+.inviteBtn{
   position: relative;
   margin: 20rpx;
   color: white;
   background-color: rgb(255,64,129);
   border-radius: 30px;
   border-color: rgb(255,64,129);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.editBtn{
+  position: relative;
+  margin: 20rpx;
+  background-color: white;
+  color: black;
+  border-radius: 30px;
+  border-color: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -80,16 +89,9 @@ page{
     /* background: rgba(39, 130, 215, 0.7); */
 }
 
-#find_it {
-  margin-top: 20rpx;
-}
+/* #edit_metting{
 
-#edit_metting{
-  margin-top: 20rpx;
-  background-color: white;
-  color: black;
-  border-color: white;
-}
+} */
 
 .people_num{
   width: 100%;
@@ -111,6 +113,7 @@ page{
   flex-direction:row;
   white-space:nowrap;
 }
+
 
 
 .item{

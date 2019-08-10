@@ -5,38 +5,34 @@
     <view id="page_title">一起玩什么</view>
   </view>
 
-  <view id="inviteCard" style="flex-direction:column; display: flex;">
+  <view id="inviteCard" bindtap="openLocation" style="flex-direction:column; display: flex;">
 
     <view style="flex:1; width:100%; margin-top:20rpx">
-      <view><text id="title">玩</text></view>
-      <view><text id="time_text">8月4日\t周日\t11:45</text></view>
-      <view><text id="position_name">深圳腾讯滨海大厦</text></view>
-      <view><text id="position_detail">广东省深圳市南山区后海大道与滨海大道交汇处</text></view>
+      <view><text id="title">{{actionName}}</text></view>
+      <view><text id="time_text">{{actionTime}}</text></view>
+      <view><text id="position_name">{{actionPosName}}</text></view>
+      <view><text id="position_detail">{{actionPosDec}}</text></view>
     </view>
 
-    <map class="inner_map">
+    <map class="inner_map" longitude="{{longitude}}" latitude="{{latitude}}" scale='16'>
         <cover-view class="map_cover" style="width:100%; height:100%"></cover-view>
     </map>
 
   </view>
 
-  <button id="find_it" class="round_btn">找ta玩</button>
-  <button id="edit_metting" class="round_btn">编辑见面</button>
+  <button class="round_btn inviteBtn" wx:if="{{!isOwner&&!isJoin}}" bindtap="doContact">找ta玩</button>
+  <button class="round_btn inviteBtn" wx:if="{{isOwner}}" bindtap="invite">邀请</button>
+  <button class="round_btn editBtn" wx:if="{{isOwner}}" bindtap="editMetting">编辑见面</button>
+  <button class="round_btn editBtn" wx:if="{{isJoin&&!isOwner}}" bindtap="exitMetting">退出活动</button>
+  <button class="round_btn editBtn" wx:if="{{isOwner}}" bindtap="deleteMetting">删除活动</button>
 
-  <text class="people_num">- {{peopleNum}}人参与 -</text>
-
-  <!-- <scroll-view enable-flex id="join_peoples" scroll-x="true">
-    <view class="join_peoples_item" wx:for="{{personArray}}" style="flex-direction:column; display:flex;flex:0 1 auto" >
-      <image class="avatar_img" src="{{item.avatarUrl}}"></image>
-      <text class="user_name">{{item.userName}}</text>
-    </view>
-  </scroll-view> -->
+  <text class="people_num">- {{joinUserNum}}人参与 -</text>
 
   <scroll-view scroll-x id="join_peoples" class="scrollView">
     <view class="itemContainer" >
-      <view class="join_peoples_item" wx:for="{{personArray}}" wx:key="{{index}}" style="flex-direction:column; display:flex;">
-        <image class="avatar_img" src="{{item.avatarUrl}}"></image>
-        <text class="user_name">{{item.userName}}</text>
+      <view class="join_peoples_item" wx:for="{{joinUserArray}}" wx:key="{{index}}" style="flex-direction:column; display:flex;">
+        <image class="avatar_img" src="{{item.avatar}}"></image>
+        <text class="user_name">{{item.nickname}}</text>
       </view>
     </view>
   </scroll-view>
