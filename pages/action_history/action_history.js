@@ -12,6 +12,8 @@ Page({
   onLoad: function () {
     var that = this;
     var userInfo = new Array();
+    console.log('in list view')
+    console.log(app.globalData.userOpenId);
     var user1 = {
       "id": 1,
       "avatar": '../../img/avatar1.jpg'
