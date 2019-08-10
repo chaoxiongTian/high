@@ -12,6 +12,8 @@ Page({
   onLoad: function () {
     var that = this;
     var userInfo = new Array();
+    console.log('in list view')
+    console.log(app.globalData.userOpenId);
     var user1 = {
       "id": 1,
       "avatar": '../../img/avatar1.jpg'
@@ -78,6 +80,10 @@ Page({
   },
 
   onClickAction: function (e) {
+    var next_url = '../invite/invite?id=' + e.currentTarget.dataset.supplierid;
+    wx.navigateTo({
+      url:next_url
+    })
     console.log("action id:" + e.currentTarget.dataset.supplierid);
   },
 

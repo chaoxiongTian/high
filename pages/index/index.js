@@ -49,7 +49,9 @@ Page({
     console.log("shareBtn");
   },
   tapList() {
-    console.log("actionList");
+    wx.reLaunch({
+      url: '../action_history/action_history',
+    })
   },
   tapRandom() {
     var addUrl = '../friends/randomFriends?id=' + this.data.randomID;
@@ -87,6 +89,7 @@ Page({
     wx.getUserInfo({
       success: res => {
         app.globalData.userInfo = res.userInfo
+        console.log(app.globalData.userOpenId);
         that.setData({
           userInfo: res.userInfo,
           zIndex: 50,

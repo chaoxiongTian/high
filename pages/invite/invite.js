@@ -7,31 +7,33 @@ Page({
   data: {
     actionId:0,
     wxid:0,
-    peopleNum:3,
-    showEdit:true,
-    personArray:[
-      { avatarUrl: "image/back.png", userName: "小明"},
-      { avatarUrl: "image/back.png", userName: "小明"},
-      { avatarUrl: "image/back.png", userName: "小明"},
+    joinUserNum:0,
+    isOwner:true,
+    isJoin:true,
+    joinUserArray:[
+      // { avatar: "image/back.png", nickname: "小明"},
+      // { avatar: "image/back.png", nickname: "小明"},
+      // { avatar: "image/back.png", nickname: "小明"},
     ],
     latitude:null, 
     longitude:null,
+    noticeTime:null,
     actionName: "吃饭",
-    actionTime: "8月4日\t周日\t11:45",
+    actionTime: null,
+    actionTimeString: "8月4日\t周日\t11:45",
     actionPosName: "深圳腾讯滨海大厦",
     actionPosDec: "广东省深圳市南山区后海大道与滨海大道交汇处",
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    setData({
+    this.setData({
       actionId:options.id,
-      wxid:app.global.userInfo.wxid
+      wxid:getApp().wxid
     })
-
+    var that = this
     wx.request({
       url: '149.28.31.199:8080/get_action',
       data: {
@@ -39,15 +41,41 @@ Page({
         actionId:this.actionId,
       },
       header: {
-        'content-type':'application/x-www-form-urlencoded'
+        'content-type':'application/json'
       },
       method: 'GET',
       success: function (res) {
         if (res.statusCode == 200){
-          
+          latitude: res.data.latitude;
+          longitude: res.data.longitude;
+          actionName: res.data.actionName;
+          actionTime: res.data.actionName;
+          actionPosName: res.data.actionPosName;
+          actionPosDec: res.data.actionPosDec;
+          isOwner: res.data.isOwner;
+          joinUserArray: res.data.users;
+          joinUserNum: joinUserArray.length;
+          transTimeMillToString();
         } else {
-          console.log("invite.js getAction error : "+res.statusCode)
+          console.log("invite.js getAction error : " + res.statusCode)
         }
+      },
+      fail: function () {
+        console.log("invite.js getAction fail")
+        wx.getLocation({
+          type: 'gcj02',
+          success: function (res) {
+            that.setData({
+              latitude: res.latitude,
+              longitude: res.longitude
+            })
+          }
+        })
+        isOwner:true
+        joinUserArray: [
+          { avatar:"https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname:"小明"},
+          { avatar:"https://avatar.csdn.net/A/B/5/3_chq00788.jpg", nickname:"笑话"}
+        ]
       }
     })
   },
@@ -101,11 +129,61 @@ Page({
     
   },
 
+  doContact: function () {
+
+  },
+
+  invite: function () {
+
+  },
+
+  editMetting: function () {
+
+  },
+
+  exitMetting: function () {
+
+  },
+
+  deleteMetting: function () {
+
+  },
+
+  getAvatarImage: function (avatarUrl, index) {
+    var that = this;
+    console.log(avatarUrl);
+    wx.downloadFile({
+      url: avatarUrl,
+      success: function (res) {
+        var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
+        that.setData({
+          [joinUserArray[index].avatar] : cachePath,
+        })
+      }
+    })
+  },
+
+  transTimeMillToString: function () {
+    var date = (new Date(actionTime))
+    actionTimeString: date.getMonth()+1 + "月" +  date.getDate() + "日 周" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes()
+  },
+
+  transUsersAvatar: function() {
+    for (var i = 0; i < joinUserArray.length; i++){
+      getAvatarImage(joinUserArray[i].avatar, i)
+    }
+  },
+
   onTapBack: function () {
 
   },
 
   openLocation: function() {
-    
+    wx.openLocation({
+      longitude:this.data.longitude,
+      latitude: this.data.latitude,
+      name: this.data.actionPosName,
+      address: this.data.actionPosDec
+    })
   }
 })

@@ -18,3 +18,23 @@
 .page-body{ 
   margin-top: 200rpx; 
 }
+
+.btn-area{
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #FFF;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+.btn-area button{
+  border: none;
+  background: #FF4081;
+  color: #FFF;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  z-index: 999;
+}

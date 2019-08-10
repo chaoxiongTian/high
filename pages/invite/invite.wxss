@@ -60,13 +60,22 @@ page{
   color: rgba(177, 177, 177, 0.8);
   text-align: center;
 }
-.round_btn{
+.inviteBtn{
   position: relative;
   margin: 20rpx;
   color: white;
   background-color: rgb(255,64,129);
   border-radius: 30px;
   border-color: rgb(255,64,129);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.editBtn{
+  position: relative;
+  margin: 20rpx;
+  background-color: white;
+  color: black;
+  border-radius: 30px;
+  border-color: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -80,16 +89,9 @@ page{
     /* background: rgba(39, 130, 215, 0.7); */
 }
 
-#find_it {
-  margin-top: 20rpx;
-}
+/* #edit_metting{
 
-#edit_metting{
-  margin-top: 20rpx;
-  background-color: white;
-  color: black;
-  border-color: white;
-}
+} */
 
 .people_num{
   width: 100%;
@@ -107,5 +109,38 @@ page{
 
 #join_peoples{
   width: 100%;
+  display:flex;
+  flex-direction:row;
+  white-space:nowrap;
+}
 
+
+
+.item{
+  display: inline-block;
+  margin-right: 20rpx;
+  width: calc(100% / 3);
+  height: 100rpx;
+  background: #ff00ff;
+}
+
+.scrollView{
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.join_peoples_item {
+  
+}
+
+.itemContainer{
+  margin: 0 auto;
+  display: flex;
+  flex-direction:row;
+  flex: 0 1 30;
+  width: 70%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
