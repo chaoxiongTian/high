@@ -6,8 +6,9 @@
           <view class="theme">{{actionItem.theme}}</view>
           <view class="participants">
             <block wx:for="{{actionItem.participants}}" wx:for-item="userItem" wx:key="unique">
-              <image class = "avatar{{index}}" src='{{userItem.avatar}}' mode='aspectFill'></image>
+              <view wx:if = "{{userItem.show}}"><image class = "avatar{{index}}" src='{{userItem.avatar}}' mode='aspectFill'></image></view>
             </block>
+            <view wx:if = "{{actionItem.shouldEllipsis}}"><image class = "avatar3" src='../../img/ellipsis.jpg' mode='aspectFill'></image></view>
           </view>
           <view class="time">{{actionItem.time}}</view>
           <view class="location">{{actionItem.location}}</view>
