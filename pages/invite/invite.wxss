@@ -73,8 +73,11 @@ page{
 .inner_map {
   flex: 1.5;
   width: 100%;
-  background: #fff;
-  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+}
+
+.map_cover {
+  background: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0));
+    /* background: rgba(39, 130, 215, 0.7); */
 }
 
 #find_it {
