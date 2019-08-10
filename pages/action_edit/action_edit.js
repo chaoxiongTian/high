@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    backBtnTop: 6,
+    navHeight: 6,
   },
 
   /**
@@ -19,8 +20,14 @@ Page({
     this.setData({
       time: time
     });
+    this.setBackBtn();
   },
-
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -74,4 +81,9 @@ Page({
       url: 'action_edit_time_select/action_edit_time_select'
     })
   },
+  onTapBack:function() {
+    wx.navigateBack({
+      
+    })
+  }
 })

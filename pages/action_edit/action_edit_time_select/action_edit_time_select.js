@@ -42,6 +42,8 @@ Page({
     hours:24,
     minutes,
     minutes:59,
+    backBtnTop: 6,
+    navHeight: 6,
   },
   bindChange(e) {
     const val = e.detail.value
@@ -51,6 +53,21 @@ Page({
       day: this.data.days[val[0]],
       hours: this.data.days[val[0]],
       minutes: this.data.minutes[val[0]],
+    })
+  },
+
+  onLoad: function (options) {
+    this.setBackBtn();
+  },
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
+  onTapBack:function(){
+    wx.navigateBack({
+      
     })
   }
 }) 

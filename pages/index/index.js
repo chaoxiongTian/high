@@ -24,7 +24,7 @@ Page({
     hasAvatar: false,
     shareBtnTop:10,
     randomID:'test',
-    hasAction: true,
+    hasAction: false,
     actionId:'testID',
     btnText:"找人玩",
   },
@@ -70,7 +70,7 @@ Page({
     } else {
       var addUrl = '../action_edit/action_edit';
       console.log(addUrl);
-      wx.reLaunch({
+      wx.navigateTo({
         url: addUrl,
       })
     }
