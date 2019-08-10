@@ -22,8 +22,7 @@ Page({
     })
   },
   tapBack() {
-    wx.reLaunch({
-      url: '../index/index',
+    wx.navigateBack({
     })
   },
   onClickAction: function (e) {

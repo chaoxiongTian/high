@@ -49,7 +49,7 @@ Page({
     console.log("shareBtn");
   },
   tapList() {
-    wx.reLaunch({
+    wx.navigateTo({
       url: '../action_history/action_history',
     })
   },

@@ -38,7 +38,7 @@ Page({
     })
     var that = this
     wx.request({
-      url: '149.28.31.199:8080/get_action',
+      url: 'http://149.28.31.199:8080/get_action',
       data: {
         wxid:this.wxid,
         actionId:this.actionId,

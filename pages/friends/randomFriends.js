@@ -18,6 +18,9 @@ Page({
     avatarUrl: '',
     userID:'',
     randomID:'ttttt',
+    hasAction:false,
+    actionName:'',
+    actionId:'',
   },
 
   /**
@@ -28,13 +31,11 @@ Page({
       key: 'IMJBZ-LVYLU-ZJ3VP-2Q77A-EIRY7-VTBFO'
     });
     var that = this;
-    app.getLocal(that);
-    this.startLocalHeart();
-    this.getUserInfo();
     this.setBackBtn();
     this.setData ({
       userID:options.id,
     });
+    this.getFriendInfo();
     console.log(this.data.userID);
   },
   tapBack(){
@@ -94,7 +95,7 @@ Page({
       width: 50,
       id: 0,
       callout: {
-        content: this.data.userInfo.nickName,
+        content: this.data.actionName,
         color: "#FFFFFF",
         fontSize: 18,
         borderRadius: 20,
@@ -135,7 +136,42 @@ Page({
   onShow: function () {
 
   },
-
+  getFriendInfo(){
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/update_position',
+      data: {
+        wxid: this.data.userID,
+        longitude: 0,
+        latitude:0,
+        nickName:'',
+        avator:'',
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.statusCode == 200) {
+          that.setData({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+            hasAction: res.data.hasAction,
+            actionName: res.data.actionName[0],
+            actionId: res.data.actionId[0],
+          });
+          if (that.data.hasAvatar){
+            that.setMarkers();
+          }
+        } else {
+          console.log("update_position error : " + res.statusCode)
+        }
+      },
+      fail: function () {
+        console.log("update_position fail")
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
