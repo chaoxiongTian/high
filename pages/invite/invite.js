@@ -5,14 +5,43 @@ Page({
    * 页面的初始数据
    */
   data: {
-    peopleNum:3
+    actionId:0,
+    wxid:0,
+    peopleNum:3,
+    personArray:[
+      { avatarUrl: "image/back.png", userName: "小明"},
+      { avatarUrl: "image/back.png", userName: "小明"},
+      { avatarUrl: "image/back.png", userName: "小明"},
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    setData({
+      actionId:options.id,
+      wxid:app.global.userInfo.wxid
+    })
+
+    wx.request({
+      url: '149.28.31.199:8080/get_action',
+      data: {
+        wxid:this.wxid,
+        actionId:this.actionId,
+      },
+      header: {
+        'content-type':'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == 200){
+          
+        } else {
+          console.log("invite.js getAction error : "+res.statusCode)
+        }
+      }
+    })
   },
 
   /**

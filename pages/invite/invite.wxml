@@ -26,7 +26,10 @@
   <text class="people_num">- {{peopleNum}}人参与 -</text>
 
   <scroll-view id="join_peoples" scroll-x="true" style="width:100%">
-    
+    <view wx:for="{{personArray}}" style="flex-direction:row; display:flex;">
+      <image class="avatar_img" src="{{item.avatarUrl}}"></image>
+      <text class="user_name">{{item.userName}}</text>
+    </view>
   </scroll-view>
   
 </view>
