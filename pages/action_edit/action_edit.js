@@ -17,13 +17,16 @@ Page({
     errMsg:null,
     latitude:null,
     longitude:null,
-    location_name:null,
+    location_name:"",
+    time:null,
+    remind_time: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('!!!!!!!time', this.data.time)
     // 调用函数时，传入new Date()参数，返回值是日期和时间
     var time = util.formatTime(new Date());
     // 再通过setData更改Page()里面的data，动态更新页面的数据
@@ -43,7 +46,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**

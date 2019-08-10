@@ -35,6 +35,7 @@
         <view class="align-left">提醒</view>
       </view>
       <view class="play-item-desc">
+        <view class="text-show">{{remind_time}}分钟</view>
         <image src="image/right.png"></image>
       </view>
     </view>
