@@ -99,3 +99,13 @@ page{
   position: relative;
   font-size: 24rpx;
 }
+
+.avatar_img {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+#join_peoples{
+  width: 100%;
+  
+}
