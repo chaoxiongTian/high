@@ -7,7 +7,7 @@ Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
-    hasUserInfo: false,
+    zIndex: 50,
     avatarUrl:'',
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     thisCity: '',//当前城市
@@ -23,6 +23,7 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
+    randomID:'test'
   },
   //事件处理函数
   bindViewTap: function() {
@@ -34,11 +35,31 @@ Page({
     qqmapsdk = new QQMapWX({
       key: 'IMJBZ-LVYLU-ZJ3VP-2Q77A-EIRY7-VTBFO'
     });
+    
     var that = this;
     app.getLocal(that);
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
+  },
+  tapShare(){
+    console.log("shareBtn");
+  },
+  tapList() {
+    console.log("actionList");
+  },
+  tapRandom() {
+    var addUrl = '../friends/randomFriends?id=' + this.data.randomID;
+    console.log(addUrl);
+    wx.reLaunch({
+      url: addUrl, 
+    })
+  },
+  tapAction() {
+    console.log("actionBtn");
+  },
+  tapFriend(){
+    console.log("friends");
   },
   setShareBtn() {
     this.setData({
@@ -52,9 +73,14 @@ Page({
         app.globalData.userInfo = res.userInfo
         that.setData({
           userInfo: res.userInfo,
-          hasUserInfo: true,
+          zIndex: 50,
         })
         that.getAvatarImage(res.userInfo.avatarUrl);
+      },
+      fail:res => {
+        that.setData({
+          zIndex: 1000,
+        })
       }
     })
   },

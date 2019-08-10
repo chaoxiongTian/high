@@ -1,0 +1,12 @@
+<!--pages/friends/randomFriends.wxml-->
+<view id='mainView'>
+  <map id="myMap" markers="{{markers}}" style="width:100%;height:100vh;z-index:100" longitude="{{longitude}}" latitude="{{latitude}}" scale='18' wx:if="{{hasMarker&&hasAvatar}}">
+  </map>
+  <view id='backBtn' style="top:{{backBtnTop}}px" bindtap="tapBack">
+  <text id='backImg' class="fa fa-chevron-left"></text>
+  </view>
+  <view id='randomBtn' bindtap="tapRandom">
+    <image id="buttonImg" src="../../image/randomList.png"></image>
+  </view>
+  <button id='actionBtn' bindtap="tapAction">找TA玩</button>
+</view>
