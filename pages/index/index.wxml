@@ -16,7 +16,7 @@
     <view id='avaterMid'></view>
     <view id='avaterRight'></view>
   </view>
-  <button id='actionBtn' bindtap="tapAction">找人玩</button>
+  <button id='actionBtn' bindtap="tapAction">{{btnText}}</button>
 </view>
 
 <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="z-index:{{zIndex}}" id="authorBtn">
