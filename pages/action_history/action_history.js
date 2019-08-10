@@ -80,6 +80,10 @@ Page({
   },
 
   onClickAction: function (e) {
+    var next_url = '../invite/invite?id=' + e.currentTarget.dataset.supplierid;
+    wx.navigateTo({
+      url:next_url
+    })
     console.log("action id:" + e.currentTarget.dataset.supplierid);
   },
 
