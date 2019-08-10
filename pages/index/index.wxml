@@ -2,9 +2,15 @@
 <view id='mainView'>
   <map id="myMap" markers="{{markers}}" style="width:100%;height:100vh;z-index:100" longitude="{{longitude}}" latitude="{{latitude}}" scale='18' wx:if="{{hasMarker&&hasAvatar}}">
   </map>
-  <button id='shareBtn' style="top:{{shareBtnTop}}px" bindtap="tapShare"></button>
-  <button id='buttonLeft' bindtap="tapList"></button>
-  <button id='buttonRight' bindtap="tapRandom"></button>
+  <view id='shareBtn' style="top:{{shareBtnTop}}px" bindtap="tapShare">
+    <text id='shareImg' class="fa fa-share-square-o"></text>
+  </view>
+  <view id='buttonLeft' bindtap="tapList">
+  <image class="buttonImg" src="../../image/actionList.png"></image>
+  </view>
+  <view id='buttonRight' bindtap="tapRandom">
+    <image class="buttonImg" src="../../image/randomList.png"></image>
+  </view>
   <view id='avaterList' bindtap="tapFriend">
     <view id='avaterLeft'></view>
     <view id='avaterMid'></view>
