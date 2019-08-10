@@ -3,7 +3,9 @@ const app = getApp()
 
 Page({
   data: {
-    listData: []
+    listData: [],
+    backBtnTop: 6,
+    navHeight:6,
   },
   // methods: uiUtil.getPageMethods(),
   methods: {
@@ -11,8 +13,19 @@ Page({
 
   onLoad: function () {
     this.onRequestData();
+    this.setBackBtn();
   },
-
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
+  tapBack() {
+    wx.reLaunch({
+      url: '../index/index',
+    })
+  },
   onClickAction: function (e) {
     var next_url = '../invite/invite?id=' + e.currentTarget.dataset.supplierid;
     wx.navigateTo({

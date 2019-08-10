@@ -16,7 +16,6 @@ Page({
     markers: [],
     userInfo: {},
     avatarUrl: '',
-    shareBtnTop: 10,
     userID:'',
     randomID:'ttttt',
   },
