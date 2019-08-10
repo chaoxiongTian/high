@@ -5,7 +5,6 @@
     "pages/friends/randomFriends",
     "pages/action_edit/action_edit_time_select/action_edit_time_select",
     "pages/action_edit/action_edit",
-    "pages/friends/randomFriends",
     "pages/invite/invite"
   ],
   "window": {
