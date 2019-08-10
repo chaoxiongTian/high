@@ -15,9 +15,7 @@
         <view class="align-left">时间</view>
       </view>
       <view class="play-item-desc">
-        <view>8月3日</view>
-        <view class="align-left">周六</view>
-        <view class="align-left">11:45</view>
+        <view>{{time}}</view>
         <image src="image/right.png"></image>
       </view>
     </view>
