@@ -49,15 +49,17 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode == 200){
-          latitude: res.data.latitude;
-          longitude: res.data.longitude;
-          actionName: res.data.actionName;
-          actionTime: res.data.actionName;
-          actionPosName: res.data.actionPosName;
-          actionPosDec: res.data.actionPosDec;
-          isOwner: res.data.isOwner;
-          joinUserArray: res.data.users;
-          joinUserNum: joinUserArray.length;
+          that.setData({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+            actionName: res.data.actionName,
+            actionTime: res.data.actionName,
+            actionPosName: res.data.actionPosName,
+            actionPosDec: res.data.actionPosDec,
+            isOwner: res.data.isOwner,
+            joinUserArray: res.data.users,
+            joinUserNum: joinUserArray.length,
+          })
           that.transTimeMillToString();
           that.transUsersAvatar();
         } else {
