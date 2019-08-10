@@ -186,7 +186,9 @@ Page({
   },
 
   onTapBack: function () {
-
+    wx.navigateBack({
+      
+    })
   },
 
   openLocation: function() {

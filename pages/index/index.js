@@ -64,7 +64,7 @@ Page({
     if (this.data.hasAction) {
       var addUrl = '../invite/invite?id=' + this.data.actionId;
       console.log(addUrl);
-      wx.reLaunch({
+      wx.navigateTo({
         url: addUrl,
       })
     } else {
