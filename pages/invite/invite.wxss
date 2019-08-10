@@ -38,7 +38,7 @@ page{
   margin-left: 16px;
   line-height: 25px;
   padding-top: 20px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
 }
 #time_text{
@@ -107,5 +107,5 @@ page{
 
 #join_peoples{
   width: 100%;
-  
+
 }

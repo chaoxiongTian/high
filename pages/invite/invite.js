@@ -8,11 +8,19 @@ Page({
     actionId:0,
     wxid:0,
     peopleNum:3,
+    showEdit:true,
     personArray:[
       { avatarUrl: "image/back.png", userName: "小明"},
       { avatarUrl: "image/back.png", userName: "小明"},
       { avatarUrl: "image/back.png", userName: "小明"},
     ],
+    latitude:null, 
+    longitude:null,
+    actionName: "吃饭",
+    actionTime: "8月4日\t周日\t11:45",
+    actionPosName: "深圳腾讯滨海大厦",
+    actionPosDec: "广东省深圳市南山区后海大道与滨海大道交汇处",
+
   },
 
   /**
@@ -95,5 +103,9 @@ Page({
 
   onTapBack: function () {
 
+  },
+
+  openLocation: function() {
+    
   }
 })
