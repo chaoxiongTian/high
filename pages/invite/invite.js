@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnTop: 6,
+    navHeight: 6,
     actionId:0,
     wxid:0,
     joinUserNum:0,
@@ -29,6 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setBackBtn();
     this.setData({
       actionId:options.id,
       wxid:getApp().wxid
@@ -82,7 +85,12 @@ Page({
       }
     })
   },
-
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
