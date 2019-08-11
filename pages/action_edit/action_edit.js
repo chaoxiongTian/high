@@ -1,4 +1,5 @@
 // pages/action_edit/action_edit.js
+const app = getApp();
 var util = require('../utils/util.js');
 const date = new Date()
 Page({
@@ -7,18 +8,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activityTitle:null,
+    activityTitle:'',
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDate(),
     hours: date.getHours(),
     minutes: date.getMinutes(),
-    address:null,
-    errMsg:null,
-    latitude:null,
-    longitude:null,
+    address:'',
+    errMsg:'',
+    latitude:0,
+    longitude:0,
     location_name:"",
-    time:null,
+    time:0,
     remind_time: 0,
     timestamp: "",
     backBtnTop: 6,
@@ -45,6 +46,7 @@ Page({
     }
   },
   updateInfo:function(options){
+    console.log(this.options.action);
     let data = JSON.parse(options.action)
     let actionTimes = new Date(data.actionTime)
     this.setData({
@@ -64,7 +66,7 @@ Page({
       minutes: actionTimes.getMinutes(),
       time: util.formatTime(actionTimes),
     });
-    console.log(this.data);
+    
   },
   setBackBtn() {
     this.setData({
@@ -161,13 +163,76 @@ Page({
   },
   bindButtonTap:function(){
     if(this.data.isUpdate) {
+      this.updateAction();
       wx.navigateBack({
 
       })
     } else {
+      this.addAction();
       wx.reLaunch({
         url: '../index/index',
       })
     }
-  }
+  },
+  addAction:function() {
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/add_action.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        isAdd: true ,
+        actionID: '',
+        actionName: this.data.activityTitle,
+        actionTime: this.data.timestamp,
+        longitude: this.data.longitude,
+        latitude: this.data.latitude,
+        actionPosName: this.data.location_name,
+        actionPosDec: this.data.address,
+        noticeTime: this.data.remind_time,
+        otherInfo: "没有备注"
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: "json",
+      method: 'POST',
+      success: function (res) {
+        console.log("add_action: " + res.data.actionId)
+      },
+      fail: function () {
+        console.log("add_action")
+      }
+    })
+  },
+  updateAction: function () {
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/add_action.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        isAdd: false,
+        actionID: this.data.actionId,
+        actionName: this.data.activityTitle,
+        actionTime:this.data.timestamp,
+        longitude: this.data.longitude,
+        latitude: this.data.latitude,
+        actionPosName: this.data.location_name,
+        actionPosDec: this.data.address,
+        noticeTime: this.data.remind_time,
+        otherInfo: "没有备注"
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: "json",
+      method: 'POST',
+      success: function (res) {
+        console.log("add_action_update: " + res.data)
+        console.log("add_action_update: " + res.data.actionId)
+      },
+      fail: function () {
+        console.log("add_action")
+      }
+    })
+  },
 })

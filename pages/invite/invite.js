@@ -34,64 +34,9 @@ Page({
     this.setBackBtn();
     this.setData({
       actionId:options.id,
-      wxid:getApp().wxid
+      wxid:app.globalData.userOpenId,
     })
-    var that = this
-    wx.request({
-      url: 'http://149.28.31.199:8080/get_action',
-      data: {
-        wxid:this.wxid,
-        actionId:this.actionId,
-      },
-      header: {
-        'content-type':'application/json'
-      },
-      method: 'GET',
-      success: function (res) {
-        if (res.statusCode == 200){
-          that.setData({
-            latitude: res.data.latitude,
-            longitude: res.data.longitude,
-            actionName: res.data.actionName,
-            actionTime: res.data.actionTime,
-            actionTimeString: transTimeMillToString(res.data.actionTime),
-            actionPosName: res.data.actionPosName,
-            actionPosDec: res.data.actionPosDec,
-            noticeTime: res.data.noticeTime,
-            isOwner: res.data.isOwner,
-            joinUserArray: res.data.users,
-            joinUserNum: joinUserArray.length,
-          })
-          
-        } else {
-          console.log("invite.js getAction error : " + res.statusCode)
-        }
-      },
-      fail: function () {
-        console.log("invite.js getAction fail")
-        wx.getLocation({
-          type: 'gcj02',
-          success: function (res) {
-            that.setData({
-              latitude: res.latitude,
-              longitude: res.longitude
-            })
-          }
-        })
-        that.setData({
-          actionTime : (new Date()).getTime(),
-          actionTimeString: transTimeMillToString((new Date()).getTime()),
-          isOwner: true,
-          joinUserArray: [
-            { avatar: "https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname: "小明" },
-            { avatar: "https://avatar.csdn.net/A/B/5/3_chq00788.jpg", nickname: "小华" }
-          ],
-          noticeTime:10,
-          joinUserNum: that.data.joinUserArray.length
-        })
-        that.transUsersAvatar()
-      }
-    })
+    console.log('actionID',this.data.actionId);
   },
   setBackBtn() {
     this.setData({
@@ -110,7 +55,43 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this
+    wx.request({
+      url: 'http://149.28.31.199/get_action.php',
+      data: {
+        wxid: this.wxid,
+        actionId: this.actionId,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType:'json',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == 200) {
+          console.log("invite.js getAction", res.data)
+          that.setData({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+            actionName: res.data.actionName,
+            actionTime: res.data.actionTime,
+            actionTimeString: transTimeMillToString(res.data.actionTime),
+            actionPosName: res.data.actionPosName,
+            actionPosDec: res.data.actionPosDec,
+            noticeTime: res.data.noticeTime,
+            isOwner: res.data.isOwner,
+            joinUserArray: res.data.users,
+            joinUserNum: joinUserArray.length,
+          })
 
+        } else {
+          console.log("invite.js getAction error : " + res.statusCode)
+        }
+      },
+      fail: function () {
+        console.log("invite.js getAction fail")
+      }
+    })
   },
 
   /**

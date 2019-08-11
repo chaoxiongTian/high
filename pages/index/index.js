@@ -24,9 +24,9 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
-    hasAction: true,
-    actionId:'testID',
-    actionName:'testAction',
+    hasAction: false,
+    actionId:' ',
+    actionName:' ',
     friends:[],
     friendsCount:0,
     friendsZindex:10,
@@ -129,7 +129,7 @@ Page({
             hasAvatar: true
           })
 
-          that.setFriends(res.userInfo.avatarUrl)
+          //that.setFriends(res.userInfo.avatarUrl)
 
         })
         
@@ -248,11 +248,12 @@ Page({
         wxidB: app.globalData.userOpenId,
       },
       header: {
-        'content-type': 'application/json'
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
+      dataType: "json",
       method: 'POST',
       success: function (res) {
-        console.log("update_friend: " + res)
+        console.log("update_friend: " + res.data.success)
       },
       fail: function () {
         console.log("update_friend fail")
@@ -268,28 +269,30 @@ Page({
         wxid:app.globalData.userOpenId,
       },
       header: {
-        'content-type': 'application/json'
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
+      dataType: "json",
       method: 'GET',
       success: function (res) {
-        console.log("get_friend_list: " + res);
+        console.log("get_friend_list: " + res.data.count);
         var friends=[];
-        for (var i = 0; i < res.count; i++) {
+        for (var i = 0; i < res.data.count; i++) {
           var oneFriend = {
             index: i,
-            name: res.nikeName[i],
-            openId: res.friendId[i],
-            avator: res.frientAvator[i],
+            name: res.data.nickname[i],
+            openId: res.data.frientId[i],
+            avator: res.data.friendAvator[i],
           }
           friends[i]=oneFriend;
         }
-        if (res.count) {
+        if (res.data.count) {
+          console.log("get_friend_list:",friends);
           that.setData({
             friends:friends,
-            friendsCount:res.count
+            friendsCount: res.data.count
           })
           app.globalData.friends = friends;
-          app.globalData.friendsCount = res.count;
+          app.globalData.friendsCount = res.data.count;
         }
       },
       fail: function () {
@@ -307,20 +310,22 @@ Page({
         latitude: that.data.latitude,
         avator: app.globalData.userInfo.avatarUrl,
         nickname: app.globalData.userInfo.nickName,
-      },
+      }, 
       header: {
-        'content-type': 'application/json'
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
+      dataType: "json",
       method: 'POST',
       success: function (res) {
-        console.log("update_position: " + res)
-        
-        that.setData({
-          hasAction:res.hasAction,
-          actionId:res.actionId[0],
-          actionName:res.actionName[0],
-        })
-        
+        if (res.statusCode == 200) {
+          console.log("update_position:",res.data.hasAction)
+          console.log("update_position:", res.data.actionId)
+          that.setData({
+            hasAction: res.data.hasAction,
+            actionName:res.data.actionName[0],
+            actionId:res.data.actionId[0],
+          })
+        }
       },
       fail: function () {
         console.log("update_position fail")
