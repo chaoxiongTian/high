@@ -2,9 +2,9 @@
 <view id='mainView'>
   <map id="myMap" markers="{{markers}}" style="width:100%;height:100vh;z-index:100" longitude="{{longitude}}" latitude="{{latitude}}" scale='18' wx:if="{{hasMarker&&hasAvatar}}">
   </map>
-  <view id='shareBtn' style="top:{{shareBtnTop}}px" bindtap="tapShare">
+  <button id='shareBtn'  open-type='share' style="top:{{shareBtnTop}}px">
     <text id='shareImg' class="fa fa-share-square-o"></text>
-  </view>
+  </button>
   <view id='buttonLeft' bindtap="tapList">
   <image class="buttonImg" src="../../image/actionList.png"></image>
   </view>
@@ -27,7 +27,7 @@
 
 <view id="friendView" style="z-index:{{friendsZindex}}">
   <text id='closeFriends' class="fa fa-times-circle-o" bindtap="onFriendsClose"></text>
-  <text id="friendTitle">好友动态</text>
+  <text id="friendTitle">查找好友</text>
   <scroll-view scroll-x="true" id="scrollView">
     <view class="scroll-y" >
       <view wx:for-items="{{friends}}" wx:key="index">

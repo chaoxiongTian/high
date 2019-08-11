@@ -54,6 +54,7 @@ Page({
   },
   tapShare(){
     console.log("shareBtn");
+    this.onShareAppMessage();
   },
   tapList() {
     wx.navigateTo({
@@ -200,5 +201,13 @@ Page({
       url: next_url
     })
     console.log("open id:" + e.currentTarget.dataset.supplierid);
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '嗨的不行',
+      desc: [app.globalData.userInfo.nickName + '邀请你来使用'],
+      path: ['pages/index/index?share=1&id='+app.globalData.userOpenId]
+    }
   },
 })
