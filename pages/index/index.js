@@ -36,7 +36,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function (res) {
     qqmapsdk = new QQMapWX({
       key: 'IMJBZ-LVYLU-ZJ3VP-2Q77A-EIRY7-VTBFO'
     });
@@ -46,6 +46,10 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
+    if(res.share) {
+      var friendOpenID = res.id;
+      console.log("friendId ", friendOpenID);
+    }
   },
   onFriendsClose(){
     this.setData({
@@ -209,5 +213,26 @@ Page({
       desc: [app.globalData.userInfo.nickName + '邀请你来使用'],
       path: ['pages/index/index?share=1&id='+app.globalData.userOpenId]
     }
+  },
+
+  updateFriendInfo:function(id) {
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/update_friend',
+      data: {
+        wxidA: id,
+        wxidB: app.globalData.userOpenId,
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log("update_friend : " + res.statusCode)
+      },
+      fail: function () {
+        console.log("update_friend fail")
+      }
+    })
   },
 })
