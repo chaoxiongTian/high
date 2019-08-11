@@ -24,7 +24,7 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
-    hasAction: false,
+    hasAction: true,
     actionId:'testID',
     actionName:'testAction',
     friends:[],
@@ -242,7 +242,7 @@ Page({
   updateFriendInfo:function(id) {
     var that = this;
     wx.request({
-      url: 'http://149.28.31.199/update_friend',
+      url: 'http://149.28.31.199/update_friend.php',
       data: {
         wxidA: id,
         wxidB: app.globalData.userOpenId,
@@ -263,7 +263,7 @@ Page({
   getFriendInfo:function(){
     var that = this;
     wx.request({
-      url: 'http://149.28.31.199/get_friend_list',
+      url: 'http://149.28.31.199/get_friend_list.php',
       data: {
         wxid:app.globalData.userOpenId,
       },
@@ -300,7 +300,7 @@ Page({
   updatePos: function () {
     var that = this;
     wx.request({
-      url: 'http://149.28.31.199/update_position',
+      url: 'http://149.28.31.199/update_position.php',
       data: {
         wxid: app.globalData.userOpenId,
         longitude: that.data.longitude,

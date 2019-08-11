@@ -57,6 +57,7 @@ Page({
             actionTimeString: transTimeMillToString(res.data.actionTime),
             actionPosName: res.data.actionPosName,
             actionPosDec: res.data.actionPosDec,
+            noticeTime: res.data.noticeTime,
             isOwner: res.data.isOwner,
             joinUserArray: res.data.users,
             joinUserNum: joinUserArray.length,
@@ -80,11 +81,12 @@ Page({
         that.setData({
           actionTime : (new Date()).getTime(),
           actionTimeString: transTimeMillToString((new Date()).getTime()),
-          isOwner: false,
+          isOwner: true,
           joinUserArray: [
             { avatar: "https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname: "小明" },
             { avatar: "https://avatar.csdn.net/A/B/5/3_chq00788.jpg", nickname: "小华" }
           ],
+          noticeTime:10,
           joinUserNum: that.data.joinUserArray.length
         })
         that.transUsersAvatar()
@@ -161,7 +163,20 @@ Page({
   },
 
   editMetting: function () {
-
+    var action = {
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      noticeTime: this.data.noticeTime,
+      actionName: this.data.actionName,
+      actionTime: this.data.actionTime,
+      actionPosName: this.data.actionPosName,
+      actionPosDec: this.data.actionPosDec,
+    }
+    var url = '../action_edit/action_edit?actionId=' + this.data.actionId + '&action=' + JSON.stringify(action);
+    
+    wx.navigateTo({
+      url:url,
+    })
   },
 
   exitMetting: function () {
@@ -194,7 +209,6 @@ Page({
 
   onTapBack: function () {
     wx.navigateBack({
-      
     })
   },
 
@@ -203,7 +217,7 @@ Page({
       longitude:this.data.longitude,
       latitude: this.data.latitude,
       name: this.data.actionPosName,
-      address: this.data.actionPosDec
+      address: this.data.actionPosDec,
     })
   }
 })

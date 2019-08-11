@@ -12,7 +12,7 @@
     <view class="play-item">
       <view class="play-item-title">
         <image src="image/flag.png"></image>
-        <input class="align-left" maxlength="10" placeholder="游玩主题" />
+        <input class="align-left" maxlength="10" placeholder="游玩主题" value="{{activityTitle}}" bindblur="inputEnd"/>
       </view>
     </view>
     <view class="play-item" catchtap="time_select_click">

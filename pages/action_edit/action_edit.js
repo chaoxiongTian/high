@@ -23,6 +23,8 @@ Page({
     timestamp: "",
     backBtnTop: 6,
     navHeight: 6,
+    isUpdate:false,
+    actionId:'',
   },
 
   /**
@@ -37,6 +39,32 @@ Page({
       time: time
     });
     this.setBackBtn();
+    if(options.actionId) {
+      this.updateInfo(options);
+      console.log('updateAction:',options);
+    }
+  },
+  updateInfo:function(options){
+    let data = JSON.parse(options.action)
+    let actionTimes = new Date(data.actionTime)
+    this.setData({
+      isUpdate:true,
+      actionId:options.actionId,
+      location_name: data.actionPosName,
+      longitude: data.longitude,
+      latitude: data.latitude,
+      address: data.actionPosDec,
+      activityTitle: data.actionName,
+      remind_time: data.noticeTime,
+      timestamp: data.actionTime,
+      year:actionTimes.getFullYear(),
+      month: actionTimes.getMonth() + 1,
+      day: actionTimes.getDate(),
+      hours: actionTimes.getHours(),
+      minutes: actionTimes.getMinutes(),
+      time: util.formatTime(actionTimes),
+    });
+    console.log(this.data);
   },
   setBackBtn() {
     this.setData({
@@ -92,6 +120,12 @@ Page({
   onShareAppMessage: function () {
 
   },
+  inputEnd:function(e){
+    this.setData({
+      activityTitle: e.detail.value
+    });
+    console.log('inputEnd:', e.detail.value);
+  },
   time_select_click: function (event) {
     wx.navigateTo({
       url: 'action_edit_time_select/action_edit_time_select'
@@ -124,5 +158,16 @@ Page({
     wx.navigateBack({
       
     })
+  },
+  bindButtonTap:function(){
+    if(this.data.isUpdate) {
+      wx.navigateBack({
+
+      })
+    } else {
+      wx.reLaunch({
+        url: '../index/index',
+      })
+    }
   }
 })
