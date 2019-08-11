@@ -22,7 +22,7 @@ Page({
     noticeTime:null,
     actionName: "吃饭",
     actionTime: null,
-    actionTimeString: "8月4日\t周日\t11:45",
+    actionTimeString: "8月32日\t周日\t11:45",
     actionPosName: "深圳腾讯滨海大厦",
     actionPosDec: "广东省深圳市南山区后海大道与滨海大道交汇处",
   },
@@ -53,15 +53,15 @@ Page({
             latitude: res.data.latitude,
             longitude: res.data.longitude,
             actionName: res.data.actionName,
-            actionTime: res.data.actionName,
+            actionTime: res.data.actionTime,
+            actionTimeString: transTimeMillToString(res.data.actionTime),
             actionPosName: res.data.actionPosName,
             actionPosDec: res.data.actionPosDec,
             isOwner: res.data.isOwner,
             joinUserArray: res.data.users,
             joinUserNum: joinUserArray.length,
           })
-          that.transTimeMillToString();
-          that.transUsersAvatar();
+          
         } else {
           console.log("invite.js getAction error : " + res.statusCode)
         }
@@ -77,13 +77,17 @@ Page({
             })
           }
         })
-        actionTime:(new Date()).getUTCMilliseconds
-        that.transTimeMillToString()
-        isOwner:true
-        joinUserArray: [
-          { avatar:"https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname:"小明"},
-          { avatar:"https://avatar.csdn.net/A/B/5/3_chq00788.jpg", nickname:"笑话"}
-        ]
+        that.setData({
+          actionTime : (new Date()).getTime(),
+          actionTimeString: transTimeMillToString((new Date()).getTime()),
+          isOwner: false,
+          joinUserArray: [
+            { avatar: "https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname: "小明" },
+            { avatar: "https://avatar.csdn.net/A/B/5/3_chq00788.jpg", nickname: "小华" }
+          ],
+          joinUserNum: that.data.joinUserArray.length
+        })
+        that.transUsersAvatar()
       }
     })
   },
@@ -176,11 +180,6 @@ Page({
     })
   },
 
-  transTimeMillToString: function () {
-    var date = (new Date(actionTime))
-    actionTimeString: `${(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)}月${date.getDate()}日 周${date.getDay()}  ${date.getHours()}:${date.getMinutes()}`
-  },
-
   transUsersAvatar: function() {
     for (var i = 0; i < joinUserArray.length; i++){
       getAvatarImage(joinUserArray[i].avatar, i)
@@ -202,3 +201,29 @@ Page({
     })
   }
 })
+
+function transTimeMillToString(timeMillisecond) {
+  let date = new Date(timeMillisecond)
+  console.log(`transTimeMillToString:  ${timeMillisecond}`)
+  return `${(date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)}月${date.getDate()}日 周${getDayOfWeek(date.getDay())}  ${date.getHours()}:${date.getMinutes()}`
+}
+
+function getDayOfWeek(day) {
+  // var dayOfWeek
+  switch(day){
+    case 0:
+      return '日'
+    case 1:
+      return '一'
+    case 2:
+      return '二'
+    case 3:
+      return '三'
+    case 4:
+      return '四'
+    case 5:
+      return '五'
+    case 6:
+      return '六'
+  }
+}

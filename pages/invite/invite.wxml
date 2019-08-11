@@ -9,7 +9,7 @@
 
     <view style="flex:1; width:100%; margin-top:20rpx">
       <view><text id="title">{{actionName}}</text></view>
-      <view><text id="time_text">{{actionTime}}</text></view>
+      <view><text id="time_text">{{actionTimeString}}</text></view>
       <view><text id="position_name">{{actionPosName}}</text></view>
       <view><text id="position_detail">{{actionPosDec}}</text></view>
     </view>
