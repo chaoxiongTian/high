@@ -24,7 +24,7 @@ Page({
     hasAvatar: false,
     shareBtnTop:10,
     randomID:'test',
-    hasAction: false,
+    hasAction: true,
     actionId:'testID',
     btnText:"找人玩",
     friends:[],
@@ -36,7 +36,7 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function (res) {
+  onLoad: function (options) {
     qqmapsdk = new QQMapWX({
       key: 'IMJBZ-LVYLU-ZJ3VP-2Q77A-EIRY7-VTBFO'
     });
@@ -46,9 +46,18 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
-    if(res.share) {
-      var friendOpenID = res.id;
+    console.log(options);
+    if (options.share) {
+      var friendOpenID = options.id;
+      this.updateFriendInfo(friendOpenID);
       console.log("friendId ", friendOpenID);
+      if (options.actionId){
+        var addUrl = '../invite/invite?id=' + options.actionId;
+        console.log(addUrl);
+        wx.navigateTo({
+          url: addUrl,
+        })
+      }
     }
   },
   onFriendsClose(){
@@ -208,10 +217,12 @@ Page({
   },
 
   onShareAppMessage: function () {
+    var path = "pages/index/index?share=1&id=" + app.globalData.userOpenId;
+    var desc = app.globalData.userInfo.nickName + "邀请你来使用";
     return {
       title: '嗨的不行',
-      desc: [app.globalData.userInfo.nickName + '邀请你来使用'],
-      path: ['pages/index/index?share=1&id='+app.globalData.userOpenId]
+      desc: desc,
+      path: path,
     }
   },
 
@@ -228,7 +239,7 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log("update_friend : " + res.statusCode)
+        console.log("update_friend: " + res.statusCode)
       },
       fail: function () {
         console.log("update_friend fail")
