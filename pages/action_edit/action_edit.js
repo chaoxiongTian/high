@@ -21,6 +21,8 @@ Page({
     time:null,
     remind_time: 0,
     timestamp: "",
+    backBtnTop: 6,
+    navHeight: 6,
   },
 
   /**
@@ -34,8 +36,14 @@ Page({
     this.setData({
       time: time
     });
+    this.setBackBtn();
   },
-
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -112,4 +120,9 @@ Page({
       }
     })
   },
+  onTapBack:function() {
+    wx.navigateBack({
+      
+    })
+  }
 })

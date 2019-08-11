@@ -1,7 +1,13 @@
 <!--pages/action_edit/action_edit.wxml-->
 <view>
-  <view class='action_edit_title'>想找人玩</view>
- <view class="play">
+  <view id="navView" style="height:{{navHeight}}px">
+  <view id='backBtn' style="top:{{backBtnTop}}px" bindtap="onTapBack">
+    <text id='backImg' class="fa fa-chevron-left"></text>
+  </view>
+  <text id="navTitle" style="top:{{backBtnTop}}px">想找人玩</text>
+</view>
+
+ <view class="play" style="margin-top:{{backBtnTop}}px; padding-top:15px">
   <view class="play-content">
     <view class="play-item">
       <view class="play-item-title">

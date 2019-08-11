@@ -1,3 +1,9 @@
+<view id="navView" style="height:{{navHeight}}px">
+  <view id='backBtn' style="top:{{backBtnTop}}px" bindtap="onTapBack">
+    <text id='backImg' class="fa fa-chevron-left"></text>
+  </view>
+  <text id="navTitle" style="top:{{backBtnTop}}px">选择时间</text>
+</view>
   <view class="page-body"> 
     <view class="selected-date">{{year}}年{{month}}月{{day}}日{{hour}}:{{minute}}</view> 
     <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange"> 

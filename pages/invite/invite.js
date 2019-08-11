@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    backBtnTop: 6,
+    navHeight: 6,
     actionId:0,
     wxid:0,
     joinUserNum:0,
@@ -29,13 +31,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setBackBtn();
     this.setData({
       actionId:options.id,
       wxid:getApp().wxid
     })
     var that = this
     wx.request({
-      url: '149.28.31.199:8080/get_action',
+      url: 'http://149.28.31.199:8080/get_action',
       data: {
         wxid:this.wxid,
         actionId:this.actionId,
@@ -46,16 +49,19 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode == 200){
-          latitude: res.data.latitude;
-          longitude: res.data.longitude;
-          actionName: res.data.actionName;
-          actionTime: res.data.actionName;
-          actionPosName: res.data.actionPosName;
-          actionPosDec: res.data.actionPosDec;
-          isOwner: res.data.isOwner;
-          joinUserArray: res.data.users;
-          joinUserNum: joinUserArray.length;
-          transTimeMillToString();
+          that.setData({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude,
+            actionName: res.data.actionName,
+            actionTime: res.data.actionName,
+            actionPosName: res.data.actionPosName,
+            actionPosDec: res.data.actionPosDec,
+            isOwner: res.data.isOwner,
+            joinUserArray: res.data.users,
+            joinUserNum: joinUserArray.length,
+          })
+          that.transTimeMillToString();
+          that.transUsersAvatar();
         } else {
           console.log("invite.js getAction error : " + res.statusCode)
         }
@@ -71,6 +77,8 @@ Page({
             })
           }
         })
+        actionTime:(new Date()).getUTCMilliseconds
+        that.transTimeMillToString()
         isOwner:true
         joinUserArray: [
           { avatar:"https://avatar.csdn.net/4/C/8/3_magic_ninja.jpg", nickname:"小明"},
@@ -79,7 +87,12 @@ Page({
       }
     })
   },
-
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -165,7 +178,7 @@ Page({
 
   transTimeMillToString: function () {
     var date = (new Date(actionTime))
-    actionTimeString: date.getMonth()+1 + "月" +  date.getDate() + "日 周" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes()
+    actionTimeString: `${(date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)}月${date.getDate()}日 周${date.getDay()}  ${date.getHours()}:${date.getMinutes()}`
   },
 
   transUsersAvatar: function() {
@@ -175,7 +188,9 @@ Page({
   },
 
   onTapBack: function () {
-
+    wx.navigateBack({
+      
+    })
   },
 
   openLocation: function() {

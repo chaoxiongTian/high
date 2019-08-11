@@ -2,6 +2,43 @@ page{
   height: 100%;
   width: 100%;
 }
+#navView {
+  background-color:  white;
+  width: 100%;
+  top:0;
+  left: 0;
+  right: 0; 
+  position: fixed;
+  z-index: 800;
+}
+#backBtn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  border-radius: 5px;
+  background-color:rgba(255, 255, 255, 0);
+  left: 15px;
+  padding: 0px;
+  z-index: 900;
+}
+#navTitle {
+  position: absolute;
+  font: 20px;
+  color: rgb(255,64,129);
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+#backImg {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 26px;
+  color: rgb(255,64,129);
+}
 #mainView {
   height: 100%;
   width: 100%;
@@ -10,6 +47,7 @@ page{
   left: 0;
   right: 0;
   z-index: 100;
+  padding-top: 5px;
   background-color:rgba(196, 196, 196, 0.1);
 }
 .top_bar{

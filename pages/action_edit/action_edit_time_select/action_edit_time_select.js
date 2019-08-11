@@ -49,9 +49,6 @@ Page({
     let curTime = `${this.data.year}年${this.data.month}月${this.data.day}日 ${this.data.hour}:${this.data.minute}`;
     
 
-    if (this.data.month < 10) {
-
-    }
   
     let time = `${this.data.year}-${this.data.month < 10 ? '0' + this.data.month : this.data.month}-${this.data.day < 10 ? '0' + this.data.day : this.data.day}T${this.data.hour < 10 ? '0' + this.data.hour : this.data.hour}:${this.data.minute < 10?'0' + this.data.minute: this.data.minute}:00`
     var date = new Date(time);
@@ -82,6 +79,8 @@ Page({
     hour: date.getHours() < 10 ? `0${date.getHours()}` : date.getHours(),
     minutes,
     minute: date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
+    backBtnTop: 6,
+    navHeight: 6,
   },
   bindChange(e) {
     const val = e.detail.value;
@@ -95,5 +94,20 @@ Page({
     })
 
     
+  },
+
+  onLoad: function (options) {
+    this.setBackBtn();
+  },
+  setBackBtn() {
+    this.setData({
+      backBtnTop: wx.getSystemInfoSync().statusBarHeight + 6,
+      navHeight: wx.getSystemInfoSync().statusBarHeight + 43,
+    })
+  },
+  onTapBack:function(){
+    wx.navigateBack({
+      
+    })
   }
 }) 

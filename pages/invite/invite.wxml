@@ -1,11 +1,11 @@
-<view id="mainView" style="flex-direction:column; display: block;">
-
-  <view class="top_bar" style="flex-direction:row; display: flex; height:100rpx; width:100%;">
-    <view><image class="back_icon" src="image/back.png" bindtap="onTapBack"> 返回</image></view>
-    <view id="page_title">一起玩什么</view>
+<view id="navView" style="height:{{navHeight}}px">
+  <view id='backBtn' style="top:{{backBtnTop}}px" bindtap="onTapBack">
+    <text id='backImg' class="fa fa-chevron-left"></text>
   </view>
-
-  <view id="inviteCard" bindtap="openLocation" style="flex-direction:column; display: flex;">
+  <text id="navTitle" style="top:{{backBtnTop}}px">一起来玩什么</text>
+</view>
+<view id="mainView" style="flex-direction:column; display: block; margin-top:{{navHeight}}px">
+  <view id="inviteCard" bindtap="openLocation" style="flex-direction:column; display: flex; " >
 
     <view style="flex:1; width:100%; margin-top:20rpx">
       <view><text id="title">{{actionName}}</text></view>

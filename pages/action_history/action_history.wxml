@@ -1,4 +1,10 @@
-<view class="page-wrapper ">
+<view id="navView" style="height:{{navHeight}}px">
+  <view id='backBtn' style="top:{{backBtnTop}}px" bindtap="tapBack">
+  <text id='backImg' class="fa fa-chevron-left"></text>
+  </view>
+  <text id="navTitle" style="top:{{backBtnTop}}px">活动列表</text>
+</view>
+<view class="page-wrapper" style="margin-top:{{navHeight}}px">
   <view class="action-list js_action_list ">
     <view class="actions">
       <block wx:for="{{actionList}}" wx:for-item="actionItem" wx:key="unique">

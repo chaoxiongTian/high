@@ -49,7 +49,7 @@ Page({
     console.log("shareBtn");
   },
   tapList() {
-    wx.reLaunch({
+    wx.navigateTo({
       url: '../action_history/action_history',
     })
   },
@@ -64,13 +64,13 @@ Page({
     if (this.data.hasAction) {
       var addUrl = '../invite/invite?id=' + this.data.actionId;
       console.log(addUrl);
-      wx.reLaunch({
+      wx.navigateTo({
         url: addUrl,
       })
     } else {
       var addUrl = '../action_edit/action_edit';
       console.log(addUrl);
-      wx.reLaunch({
+      wx.navigateTo({
         url: addUrl,
       })
     }

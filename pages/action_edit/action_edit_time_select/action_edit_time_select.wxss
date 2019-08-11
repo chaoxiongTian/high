@@ -1,4 +1,42 @@
 /* pages/action_edit/action_edit_time_select/action_edit_time_select.wxss */ 
+#navView {
+  background-color:  white;
+  width: 100%;
+  top:0;
+  left: 0;
+  right: 0; 
+  position: fixed;
+  z-index: 800;
+}
+#backBtn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  border-radius: 5px;
+  background-color:rgba(255, 255, 255, 0);
+  left: 15px;
+  padding: 0px;
+  z-index: 900;
+}
+#navTitle {
+  position: absolute;
+  font: 20px;
+  color: rgb(255,64,129);
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+#backImg {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 26px;
+  color: rgb(255,64,129);
+}
+
 .selected-date { 
   text-align: center; 
   margin: 30rpx; 
