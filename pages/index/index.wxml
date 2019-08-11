@@ -12,9 +12,11 @@
     <image class="buttonImg" src="../../image/randomList.png"></image>
   </view>
   <view id='avaterList' bindtap="tapFriend">
-    <view id='avaterLeft'></view>
-    <view id='avaterMid'></view>
-    <view id='avaterRight'></view>
+    
+    <view id='avaterMid'>
+      <text id='friendImg' class="fa fa-users"></text>
+    </view>
+    
   </view>
   <button id='actionBtn' bindtap="tapAction">{{btnText}}</button>
 </view>
@@ -22,3 +24,18 @@
 <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="z-index:{{zIndex}}" id="authorBtn">
   <view id="authorText">获取用户信息</view>
 </button>
+
+<view id="friendView" style="z-index:{{friendsZindex}}">
+  <text id='closeFriends' class="fa fa-times-circle-o" bindtap="onFriendsClose"></text>
+  <text id="friendTitle">好友动态</text>
+  <scroll-view scroll-x="true" id="scrollView">
+    <view class="scroll-y" >
+      <view wx:for-items="{{friends}}" wx:key="index">
+        <view class="avatorView"  data-supplierid="{{item.openId}}" bindtap="onClickAction">
+          <image class="avator" src="{{item.avator}}"></image>
+          <text class="nickName">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

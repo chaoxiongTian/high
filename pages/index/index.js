@@ -27,6 +27,8 @@ Page({
     hasAction: false,
     actionId:'testID',
     btnText:"找人玩",
+    friends:[],
+    friendsZindex:10,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -44,6 +46,11 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
+  },
+  onFriendsClose(){
+    this.setData({
+      friendsZindex:10,
+    })
   },
   tapShare(){
     console.log("shareBtn");
@@ -77,7 +84,9 @@ Page({
     console.log("actionBtn");
   },
   tapFriend(){
-    console.log("friends");
+    this.setData({
+      friendsZindex: 1000,
+    })
   },
   setShareBtn() {
     this.setData({
@@ -94,7 +103,17 @@ Page({
           userInfo: res.userInfo,
           zIndex: 50,
         })
-        that.getAvatarImage(res.userInfo.avatarUrl);
+        that.getAvatarImage(res.userInfo.avatarUrl).then(function (cachePath){
+          console.log('xxxxxx  ', cachePath);
+          that.setData({
+            avatarUrl: cachePath,
+            hasAvatar: true
+          })
+
+          that.setFriends(cachePath)
+
+        })
+        
       },
       fail:res => {
         that.setData({
@@ -103,20 +122,39 @@ Page({
       }
     })
   },
+  setFriends: function(avatarUrl){
+    var friends = [];
+    for (var i = 0; i < 20; i++) {
+      var oneFriend = {
+        index:i,
+        name: this.data.userInfo.nickName,
+        openId: app.globalData.userOpenId,
+        avator:avatarUrl,
+      }
+      friends[i]=oneFriend;
+    }
+    console.log(friends);
+    this.setData({
+      friends:friends,
+    })
+  },
   getAvatarImage: function (avatarUrl){
     var that = this;
-    console.log(avatarUrl);
-    wx.downloadFile({
-      url:avatarUrl,
-      success: function (res)  {
-        var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
-        that.setData({
-          avatarUrl: cachePath,
-          hasAvatar: true
-        })
+    return new Promise((resolve, reject) => {
+      console.log('xxx   ',avatarUrl);
+      wx.downloadFile({
+        url: avatarUrl,
+        success: function (res) {
+          var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
+          resolve(cachePath)
+        },
+        fail: function (res) {
+          resolve('')
+        }
+      }) 
+    })
 
-      }
-    }) 
+    
   },
   setMarkers() {
     var markers = [{
@@ -153,5 +191,14 @@ Page({
         that.getUserInfo();
       }
     }, 2000)
+  },
+
+  onClickAction: function (e) {
+    console.log(e);
+    var next_url = '../friends/randomFriends?id=' + e.currentTarget.dataset.supplierid;
+    wx.reLaunch({
+      url: next_url
+    })
+    console.log("open id:" + e.currentTarget.dataset.supplierid);
   },
 })
