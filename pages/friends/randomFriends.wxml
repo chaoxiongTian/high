@@ -8,5 +8,6 @@
   <view id='randomBtn' bindtap="tapRandom">
     <image id="buttonImg" src="../../image/randomList.png"></image>
   </view>
-  <button id='actionBtn' bindtap="tapAction">找TA玩</button>
+  <button wx:if="{{hasAction}}" id='actionBtn' bindtap="tapAction">TA的活动</button>
+  <button wx:else id='actionBtn' bindtap="tapAction">找TA玩</button>
 </view>

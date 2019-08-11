@@ -54,7 +54,9 @@ App({
   globalData: {
     userInfo: null,
     userOpenId:'',
-    hasUserAuthor:false
+    hasUserAuthor:false,
+    friends: [],
+    friendsCount:0,
   },
   getLocal: function (obj) {
     wx.getLocation({

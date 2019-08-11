@@ -11,16 +11,16 @@ Page({
     hasMarker: true,
     hasAvatar: true,
     backBtnTop: 6,
-    latitude: '',
-    longitude: '',
+    latitude: 22.53332,
+    longitude: 113.93041,
     markers: [],
     userInfo: {},
     avatarUrl: '',
-    userID:'',
     randomID:'ttttt',
     hasAction:false,
-    actionName:'',
+    actionName:'ttttt',
     actionId:'',
+    friendsInfo:[],
   },
 
   /**
@@ -33,10 +33,11 @@ Page({
     var that = this;
     this.setBackBtn();
     this.setData ({
-      userID:options.id,
+      friendsInfo: app.globalData.friends[options.id],
     });
+    console.log('randomFriends:', this.data.friendsInfo);
+    this.getAvatarImage(this.data.friendsInfo.avator);
     this.getFriendInfo();
-    console.log(this.data.userID);
   },
   tapBack(){
     wx.reLaunch({
@@ -44,14 +45,28 @@ Page({
     })
   },
   tapRandom(){
-    var addUrl = 'randomFriends?id=' + this.data.randomID;
+    var randomI = Math.floor(Math.random() * app.globalData.friendsCount);
+    var addUrl = '../friends/randomFriends?id=' + randomI;
     console.log(addUrl);
     wx.reLaunch({
       url: addUrl,
     })
   },
   tapAction(){
-    console.log("actions");
+    if (this.data.hasAction) {
+      var addUrl = '../invite/invite?id=' + this.data.actionId;
+      console.log(addUrl);
+      wx.navigateTo({
+        url: addUrl,
+      })
+    } else {
+      var addUrl = '../action_edit/action_edit';
+      console.log(addUrl);
+      wx.navigateTo({
+        url: addUrl,
+      })
+    }
+    console.log("actionBtn");
   },
   setBackBtn() {
     this.setData({
@@ -82,7 +97,7 @@ Page({
           avatarUrl: cachePath,
           hasAvatar: true
         })
-
+        that.setMarkers();
       }
     })
   },
@@ -95,7 +110,7 @@ Page({
       width: 50,
       id: 0,
       callout: {
-        content: this.data.actionName,
+        content: this.data.hasAction?this.data.actionName:this.data.friendsInfo.name,
         color: "#FFFFFF",
         fontSize: 18,
         borderRadius: 20,
@@ -108,8 +123,9 @@ Page({
       hasMarker: true,
       markers: markers
     })
-    console.log(this.data.hasMarker);
-    console.log(this.data.hasAvatar);
+    //console.log('randomMark:', markers);
+    //console.log(this.data.hasMarker);
+    //console.log(this.data.hasAvatar);
   },
   startLocalHeart() {
     var that = this;
@@ -141,7 +157,7 @@ Page({
     wx.request({
       url: 'http://149.28.31.199/update_position',
       data: {
-        wxid: this.data.userID,
+        wxid: this.data.friendsInfo.openId,
         longitude: 0,
         latitude:0,
         nickName:'',
@@ -164,7 +180,7 @@ Page({
             that.setMarkers();
           }
         } else {
-          console.log("update_position error : " + res.statusCode)
+          console.log("update_position error : " + res)
         }
       },
       fail: function () {

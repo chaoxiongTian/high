@@ -9,6 +9,7 @@ Page({
     userInfo: {},
     zIndex: 50,
     avatarUrl:'',
+    avator:'',
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     thisCity: '',//当前城市
     range: "",//配送范围
@@ -23,11 +24,11 @@ Page({
     hasMarker: false,
     hasAvatar: false,
     shareBtnTop:10,
-    randomID:'test',
-    hasAction: true,
+    hasAction: false,
     actionId:'testID',
-    btnText:"找人玩",
+    actionName:'testAction',
     friends:[],
+    friendsCount:0,
     friendsZindex:10,
   },
   //事件处理函数
@@ -46,6 +47,7 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
+    this.getFriendInfo();
     console.log(options);
     if (options.share) {
       var friendOpenID = options.id;
@@ -75,7 +77,8 @@ Page({
     })
   },
   tapRandom() {
-    var addUrl = '../friends/randomFriends?id=' + this.data.randomID;
+    var randomI = Math.floor(Math.random() * this.data.friendsCount);
+    var addUrl = '../friends/randomFriends?id=' + randomI;
     console.log(addUrl);
     wx.reLaunch({
       url: addUrl, 
@@ -116,7 +119,9 @@ Page({
         that.setData({
           userInfo: res.userInfo,
           zIndex: 50,
+          avator: res.userInfo.avatarUrl,
         })
+        console.log('userinfo:',res);
         that.getAvatarImage(res.userInfo.avatarUrl).then(function (cachePath){
           console.log('xxxxxx  ', cachePath);
           that.setData({
@@ -124,7 +129,7 @@ Page({
             hasAvatar: true
           })
 
-          that.setFriends(cachePath)
+          that.setFriends(res.userInfo.avatarUrl)
 
         })
         
@@ -148,8 +153,11 @@ Page({
       friends[i]=oneFriend;
     }
     console.log(friends);
+    app.globalData.friends = friends;
+    app.globalData.friendsCount = 20;
     this.setData({
       friends:friends,
+      friendsCount:20,
     })
   },
   getAvatarImage: function (avatarUrl){
@@ -171,6 +179,7 @@ Page({
     
   },
   setMarkers() {
+
     var markers = [{
       iconPath: this.data.avatarUrl,
       latitude: this.data.latitude,
@@ -179,7 +188,7 @@ Page({
       width: 50,
       id: 0,
       callout: { 
-        content: this.data.userInfo.nickName, 
+        content: this.data.hasAction ? this.data.actionName : this.data.userInfo.nickName, 
         color: "#FFFFFF", 
         fontSize: 18, 
         borderRadius: 20, 
@@ -192,8 +201,9 @@ Page({
       hasMarker: true,
       markers: markers
     })
-    console.log(this.data.hasMarker);
-    console.log(this.data.hasAvatar);
+    //console.log('marker:',markers);
+    //console.log(this.data.hasMarker);
+    //console.log(this.data.hasAvatar);
   },
   startLocalHeart() {
     var that = this;
@@ -203,6 +213,9 @@ Page({
       that.setMarkers();
       if(!that.data.hasMarker){
         that.getUserInfo();
+      }
+      if (that.data.hasAvatar&&that.data.hasMarker){
+        that.updatePos();
       }
     }, 2000)
   },
@@ -239,10 +252,78 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log("update_friend: " + res.statusCode)
+        console.log("update_friend: " + res)
       },
       fail: function () {
         console.log("update_friend fail")
+      }
+    })
+  },
+
+  getFriendInfo:function(){
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/get_friend_list',
+      data: {
+        wxid:app.globalData.userOpenId,
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log("get_friend_list: " + res);
+        var friends=[];
+        for (var i = 0; i < res.count; i++) {
+          var oneFriend = {
+            index: i,
+            name: res.nikeName[i],
+            openId: res.friendId[i],
+            avator: res.frientAvator[i],
+          }
+          friends[i]=oneFriend;
+        }
+        if (res.count) {
+          that.setData({
+            friends:friends,
+            friendsCount:res.count
+          })
+          app.globalData.friends = friends;
+          app.globalData.friendsCount = res.count;
+        }
+      },
+      fail: function () {
+        console.log("get_friend_list fail")
+      }
+    })
+  },
+  updatePos: function () {
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/update_position',
+      data: {
+        wxid: app.globalData.userOpenId,
+        longitude: that.data.longitude,
+        latitude: that.data.latitude,
+        avator: app.globalData.userInfo.avatarUrl,
+        nickname: app.globalData.userInfo.nickName,
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log("update_position: " + res)
+        
+        that.setData({
+          hasAction:res.hasAction,
+          actionId:res.actionId[0],
+          actionName:res.actionName[0],
+        })
+        
+      },
+      fail: function () {
+        console.log("update_position fail")
       }
     })
   },

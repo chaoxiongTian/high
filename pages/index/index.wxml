@@ -18,7 +18,8 @@
     </view>
     
   </view>
-  <button id='actionBtn' bindtap="tapAction">{{btnText}}</button>
+  <button wx:if="{{hasAction}}" id='actionBtn' bindtap="tapAction">我的活动</button>
+  <button wx:else id='actionBtn' bindtap="tapAction">找人玩</button>
 </view>
 
 <button open-type="getUserInfo" bindgetuserinfo="getUserInfo" style="z-index:{{zIndex}}" id="authorBtn">
@@ -31,7 +32,7 @@
   <scroll-view scroll-x="true" id="scrollView">
     <view class="scroll-y" >
       <view wx:for-items="{{friends}}" wx:key="index">
-        <view class="avatorView"  data-supplierid="{{item.openId}}" bindtap="onClickAction">
+        <view class="avatorView"  data-supplierid="{{item.index}}" bindtap="onClickAction">
           <image class="avator" src="{{item.avator}}"></image>
           <text class="nickName">{{item.name}}</text>
         </view>
