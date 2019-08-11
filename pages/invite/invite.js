@@ -143,7 +143,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+    var path = "pages/index/index?share=1&id=" + app.globalData.userOpenId + '&actionId=' + this.data.actionId;
+    var desc = app.globalData.userInfo.nickName + "邀请你来使用";
+    return {
+      title: '嗨的不行',
+      desc: desc,
+      path: path,
+    }
   },
 
   doContact: function () {

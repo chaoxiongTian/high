@@ -21,7 +21,7 @@
   </view>
 
   <button class="round_btn inviteBtn" wx:if="{{!isOwner&&!isJoin}}" bindtap="doContact">找ta玩</button>
-  <button class="round_btn inviteBtn" wx:if="{{isOwner}}" bindtap="invite">邀请</button>
+  <button class="round_btn inviteBtn" wx:if="{{isOwner}}"  open-type='share'>邀请</button>
   <button class="round_btn editBtn" wx:if="{{isOwner}}" bindtap="editMetting">编辑见面</button>
   <button class="round_btn editBtn" wx:if="{{isJoin&&!isOwner}}" bindtap="exitMetting">退出活动</button>
   <button class="round_btn editBtn" wx:if="{{isOwner}}" bindtap="deleteMetting">删除活动</button>
