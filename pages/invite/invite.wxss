@@ -143,6 +143,14 @@ page{
 .avatar_img {
   width: 80rpx;
   height: 80rpx;
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 50%
+}
+.user_name {
+   width: 80rpx;
+   font-size: 25rpx;
+   text-align: center;
 }
 
 #join_peoples{

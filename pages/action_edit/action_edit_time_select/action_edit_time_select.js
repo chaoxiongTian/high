@@ -52,8 +52,8 @@ Page({
   
     let time = `${this.data.year}-${this.data.month < 10 ? '0' + this.data.month : this.data.month}-${this.data.day < 10 ? '0' + this.data.day : this.data.day}T${this.data.hour < 10 ? '0' + this.data.hour : this.data.hour}:${this.data.minute < 10?'0' + this.data.minute: this.data.minute}:00`
     var date = new Date(time);
-    let timestamp = date.getTime();
-    console.log('!!!!!', time,date, timestamp)
+    let timestamp = date.getTime() / 1000;
+    console.log('!!!!!', time, date, timestamp, (new Date()).valueOf())
     if (prevPage) {
       console.log('1111')
       prevPage.setData({

@@ -1,6 +1,6 @@
 //获取应用实例
-const app = getApp()
-
+const app = getApp();
+var util = require('../utils/util.js');
 Page({
   data: {
     listData: [],
@@ -12,7 +12,7 @@ Page({
   },
 
   onLoad: function () {
-    this.onRequestData();
+   
     this.setBackBtn();
   },
   setBackBtn() {
@@ -36,98 +36,78 @@ Page({
   onRequestData:function(){
     //请求数据
     var that = this;
-    var userInfo = new Array();
-    console.log('in list view')
-    console.log(app.globalData.userOpenId);
-    var user1 = {
-      "id": 1,
-      "avatar": 'https://img2.woyaogexing.com/2019/08/09/45d6df80f5cb46ad99a99368f3829ac5!400x400.jpeg',
-      "show":false
-    };
-    var user2 = {
-      "id": 2,
-      "avatar": 'https://img2.woyaogexing.com/2019/08/09/6f4620051985427c910e76447fed9862!400x400.jpeg',
-      "show": false
-    };
-    var user3 = {
-      "id": 3,
-      "avatar": 'https://img2.woyaogexing.com/2019/08/09/eeb3c242170447dfa3e58ba6b7be88d5!400x400.jpeg',
-      "show": false
-    };
-    var user4 = {
-      "id": 4,
-      "avatar": 'https://img2.woyaogexing.com/2019/08/09/0bc9f4ca84134c739e910a78d5f08f26!400x400.jpeg',
-      "show": false
-    };
-    userInfo.push(user1);
-    userInfo.push(user2);
-    userInfo.push(user3);
-    userInfo.push(user4);
-
-    var actionInfo = new Array();
-    var action1 = {
-      "id": 1,
-      "theme": "看电影",
-      "time": "8月4日 周日 11:45",
-      "location": "中影南方影城（科技园店）",
-      "address": "广东省深圳市南山区科兴路10号科技园文化广场3层",
-      "participants": userInfo,
-      "status": true,
-      "shouldEllipsis":false
-    }
-
-    var action2 = {
-      "id": 2,
-      "theme": "吃饭",
-      "time": "8月5日 周一 16:45",
-      "location": "竹乡味（海王银河科技大厦店）",
-      "address": "广东省深圳市南山区科技中三路1号海王银河科技大厦4层",
-      "participants": userInfo,
-      "status": false,
-      "shouldEllipsis": false
-    }
-
-    var action3 = {
-      "id": 3,
-      "theme": "KTV",
-      "time": "8月6日 周二 14:45",
-      "location": "利歌宴自助式KTV（天利名城店）",
-      "address": "广东省深圳市南山区海德三道85号天利名城购物中心F4层L4-01",
-      "participants": userInfo,
-      "status": false,
-      "shouldEllipsis": false
-    }
-
-    actionInfo.push(action1);
-    actionInfo.push(action2);
-    actionInfo.push(action3);
-
-    console.log(actionInfo);
-
-    actionInfo.forEach((action, action_index, array) => {
-      action.participants.forEach((user, user_index,array) => {
-        if (user_index < 3){
-          this.getAvatarImage(user.avatar);
-          user.show = true;
-        }
-        else{
-          user.show = false;
-        }
-      })
-      if (this.userNum(action.participants) > 3) {
-        action.shouldEllipsis = true;
-      }
-      else {
-        action.shouldEllipsis = false;
-      }
-    })
-
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          actionList: actionInfo
-        })
+    wx.request({
+      url: 'http://149.28.31.199/get_action_list.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        all: true,
       },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: 'json',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == 200) {
+          console.log("get_action_list", res.data)
+          var actionInfo = new Array();
+          for (var i = 0; i < res.data.length; i++){
+            var action = res.data[i];
+            var users = action.users;
+            var userInfo = new Array();
+            for (var j=0; j<users.length && j<4; j++) {       
+              var user = {
+                id: users[j].wxid,
+                avatar:users[j].avator, 
+                show: false,
+              };
+              userInfo.push(user);
+            }
+            console.log("get_action_list_users", userInfo);
+            let actionTimes = new Date(action.actionTime * 1000 - 3600000 * 8)
+            var action0 = {
+              id: action.actionId,
+              theme: action.actionName,
+              time: util.formatTime(actionTimes),
+              location: action.actionPosName,
+              address: action.actionPosDec,
+              participants: userInfo,
+              status: action.isOldAciton,
+              shouldEllipsis: false
+            }
+            actionInfo.push(action0);
+          }
+          console.log(actionInfo);
+          actionInfo.forEach((action, action_index, array) => {
+            action.participants.forEach((user, user_index, array) => {
+              if (user_index < 3) {
+                user.show = true;
+              }
+              else {
+                user.show = false;
+              }
+            })
+            if (that.userNum(action.participants) > 3) {
+              action.shouldEllipsis = true;
+            }
+            else {
+              action.shouldEllipsis = false;
+            }
+          })
+          wx.getSystemInfo({
+            success: function (res) {
+              that.setData({
+                actionList: actionInfo
+              })
+            },
+          })
+        } else {
+          console.log("get_action_list error : " + res.statusCode)
+        }
+      },
+      fail: function () {
+        console.log("get_action_list fail")
+      }
     })
   },
 
@@ -157,6 +137,34 @@ Page({
   onShow: function () {
     global.sss = this;
     let scope = this;
+    this.onRequestData();
   },
+  
 },
 )
+function transTimeMillToString(timeMillisecond) {
+  let date = new Date(timeMillisecond)
+  let dataString = ' '+ (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月' + date.getDate() + '日 周' + getDayOfWeek(date.getDay()) + date.getHours() + ':' + date.getMinutes();
+  console.log('transTimeMillToString:', dataString);
+  return dataString;
+}
+
+function getDayOfWeek(day) {
+  // var dayOfWeek
+  switch (day) {
+    case 0:
+      return '日'
+    case 1:
+      return '一'
+    case 2:
+      return '二'
+    case 3:
+      return '三'
+    case 4:
+      return '四'
+    case 5:
+      return '五'
+    case 6:
+      return '六'
+  }
+}

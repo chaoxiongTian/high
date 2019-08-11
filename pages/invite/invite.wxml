@@ -31,7 +31,7 @@
   <scroll-view scroll-x id="join_peoples" class="scrollView">
     <view class="itemContainer" >
       <view class="join_peoples_item" wx:for="{{joinUserArray}}" wx:key="{{index}}" style="flex-direction:column; display:flex;">
-        <image class="avatar_img" src="{{item.avatar}}"></image>
+        <image class="avatar_img" src="{{item.avator}}"></image>
         <text class="user_name">{{item.nickname}}</text>
       </view>
     </view>

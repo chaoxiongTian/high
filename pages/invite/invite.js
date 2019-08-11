@@ -1,4 +1,5 @@
-const app = getApp()
+const app = getApp();
+var util = require('../utils/util.js');
 Page({
 
   /**
@@ -59,8 +60,8 @@ Page({
     wx.request({
       url: 'http://149.28.31.199/get_action.php',
       data: {
-        wxid: this.wxid,
-        actionId: this.actionId,
+        wxid: app.globalData.userOpenId,
+        actionID: that.data.actionId,
       },
       header: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
@@ -81,7 +82,7 @@ Page({
             noticeTime: res.data.noticeTime,
             isOwner: res.data.isOwner,
             joinUserArray: res.data.users,
-            joinUserNum: joinUserArray.length,
+            joinUserNum: res.data.users.length,
           })
 
         } else {
@@ -168,25 +169,6 @@ Page({
 
   },
 
-  getAvatarImage: function (avatarUrl, index) {
-    var that = this;
-    console.log(avatarUrl);
-    wx.downloadFile({
-      url: avatarUrl,
-      success: function (res) {
-        var cachePath = res.tempFilePath.replace("http:/", '').replace("https:/", '')
-        that.setData({
-          [joinUserArray[index].avatar] : cachePath,
-        })
-      }
-    })
-  },
-
-  transUsersAvatar: function() {
-    for (var i = 0; i < joinUserArray.length; i++){
-      getAvatarImage(joinUserArray[i].avatar, i)
-    }
-  },
 
   onTapBack: function () {
     wx.navigateBack({
@@ -204,7 +186,7 @@ Page({
 })
 
 function transTimeMillToString(timeMillisecond) {
-  let date = new Date(timeMillisecond)
+  let date = new Date(timeMillisecond * 1000 - 3600000 * 8)
   console.log(`transTimeMillToString:  ${timeMillisecond}`)
   return `${(date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)}月${date.getDate()}日 周${getDayOfWeek(date.getDay())}  ${date.getHours()}:${date.getMinutes()}`
 }
