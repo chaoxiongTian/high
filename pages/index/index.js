@@ -47,7 +47,7 @@ Page({
     this.startLocalHeart();
     this.getUserInfo();
     this.setShareBtn();
-    this.getFriendInfo();
+    
     console.log(options);
     if (options.share) {
       var friendOpenID = options.id;
@@ -101,6 +101,7 @@ Page({
     console.log("actionBtn");
   },
   tapFriend(){
+    this.getFriendInfo();
     this.setData({
       friendsZindex: 1000,
     })
@@ -208,7 +209,6 @@ Page({
   startLocalHeart() {
     var that = this;
     var timerTem = setInterval(function () {
-      console.log("----success----0");
       app.getLocal(that);
       that.setMarkers();
       if(!that.data.hasMarker){
@@ -318,8 +318,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (res.statusCode == 200) {
-          console.log("update_position:",res.data.hasAction)
-          console.log("update_position:", res.data.actionId)
+          console.log("update_position:",res.data)
           that.setData({
             hasAction: res.data.hasAction,
             actionName:res.data.actionName[0],

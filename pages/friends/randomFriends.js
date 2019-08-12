@@ -155,7 +155,7 @@ Page({
   getFriendInfo(){
     var that = this;
     wx.request({
-      url: 'http://149.28.31.199/update_position',
+      url: 'http://149.28.31.199/update_position.php',
       data: {
         wxid: this.data.friendsInfo.openId,
         longitude: 0,
@@ -164,11 +164,13 @@ Page({
         avator:'',
       },
       header: {
-        'content-type': 'application/json'
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
+      dataType: "json",
       method: 'POST',
       success: function (res) {
         if (res.statusCode == 200) {
+          console.log('update_positionFriend:',res.data);
           that.setData({
             latitude: res.data.latitude,
             longitude: res.data.longitude,

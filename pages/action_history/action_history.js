@@ -66,7 +66,7 @@ Page({
             console.log("get_action_list_users", userInfo);
             let actionTimes = new Date(action.actionTime * 1000 - 3600000 * 8)
             var action0 = {
-              id: action.actionId,
+              id: action.actionID,
               theme: action.actionName,
               time: util.formatTime(actionTimes),
               location: action.actionPosName,

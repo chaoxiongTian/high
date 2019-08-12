@@ -46,9 +46,10 @@ Page({
     }
   },
   updateInfo:function(options){
-    console.log(this.options.action);
     let data = JSON.parse(options.action)
-    let actionTimes = new Date(data.actionTime)
+    //let data = options.action
+    console.log(data);
+    let actionTimes = new Date(data.actionTime * 1000)
     this.setData({
       isUpdate:true,
       actionId:options.actionId,

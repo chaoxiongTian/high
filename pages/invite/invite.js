@@ -80,6 +80,7 @@ Page({
             actionPosName: res.data.actionPosName,
             actionPosDec: res.data.actionPosDec,
             noticeTime: res.data.noticeTime,
+            isJoin:res.data.isJoin,
             isOwner: res.data.isOwner,
             joinUserArray: res.data.users,
             joinUserNum: res.data.users.length,
@@ -137,7 +138,43 @@ Page({
   },
 
   doContact: function () {
-
+    var that = this;
+    console.log('actionID', that.data.actionId);
+    wx.request({
+      url: 'http://149.28.31.199/update_action.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        actionId: that.data.actionId,
+        isDelete: false,
+        isJoin: true,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: "json",
+      method: 'POST',
+      success: function (res) {
+        console.log("update_action: " + res.data.success)
+        if(res.data.success){
+          that.onShow();
+        } else {
+          wx.showToast({
+            title: '失败',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+      },
+      fail: function () {
+        console.log("update_action fail")
+        wx.showToast({
+          title: '失败',
+          icon: 'none',
+          duration: 1000
+        })
+      }
+    })
+    
   },
 
   invite: function () {
@@ -162,11 +199,57 @@ Page({
   },
 
   exitMetting: function () {
-
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/update_action.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        actionId: that.data.actionId,
+        isDelete:false,
+        isJoin:false,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: "json",
+      method: 'POST',
+      success: function (res) {
+        console.log("update_action: " + res.data.success)
+      },
+      fail: function () {
+        console.log("update_action fail")
+      }
+    })
+    wx.navigateBack({
+      
+    })
   },
 
   deleteMetting: function () {
-
+    var that = this;
+    wx.request({
+      url: 'http://149.28.31.199/update_action.php',
+      data: {
+        wxid: app.globalData.userOpenId,
+        actionId: that.data.actionId,
+        isDelete: true,
+        isJoin: false,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      dataType: "json",
+      method: 'POST',
+      success: function (res) {
+        console.log("update_action: " + res.data.success)
+      },
+      fail: function () {
+        console.log("update_action fail")
+      }
+    })
+    wx.navigateBack({
+      
+    })
   },
 
 
