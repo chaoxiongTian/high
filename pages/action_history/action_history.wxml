@@ -19,7 +19,7 @@
           <view class="time">{{actionItem.time}}</view>
           <view class="location">{{actionItem.location}}</view>
           <view class="address">{{actionItem.address}}</view>
-          <view wx:if ="{{actionItem.status==true}}"><image class = "finished" src='../../img/finished.png' mode ='aspectFill'></image>
+          <view wx:if ="{{actionItem.status}}"><image class = "finished" src='../../img/finished.png' mode ='aspectFill'></image>
           </view>
         </view>
       </block>

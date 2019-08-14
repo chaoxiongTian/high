@@ -65,6 +65,7 @@ Page({
             }
             console.log("get_action_list_users", userInfo);
             let actionTimes = new Date(action.actionTime * 1000 - 3600000 * 8)
+            let nowDate = (new Date()).getTime() / 1000 - 3600*8;
             var action0 = {
               id: action.actionID,
               theme: action.actionName,
@@ -72,7 +73,7 @@ Page({
               location: action.actionPosName,
               address: action.actionPosDec,
               participants: userInfo,
-              status: action.isOldAciton,
+              status: action.isOldAction,
               shouldEllipsis: false
             }
             actionInfo.push(action0);
@@ -94,13 +95,10 @@ Page({
               action.shouldEllipsis = false;
             }
           })
-          wx.getSystemInfo({
-            success: function (res) {
-              that.setData({
-                actionList: actionInfo
-              })
-            },
+          that.setData({
+            actionList: actionInfo
           })
+          console.log("get_action_list: " + that.data.actionList)
         } else {
           console.log("get_action_list error : " + res.statusCode)
         }
