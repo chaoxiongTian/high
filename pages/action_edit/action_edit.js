@@ -121,7 +121,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    if (this.data.actionId !=''){
+      var path = "pages/index/index?share=1&id=" + app.globalData.userOpenId + '&actionId=' + this.data.actionId;
+      var desc = app.globalData.userInfo.nickName + "邀请你来使用";
+      return {
+        title: '嗨的不行',
+        desc: desc,
+        path: path,
+      }
+    } else {
+        var path = "pages/index/index?share=1&id=" + app.globalData.userOpenId;
+        var desc = app.globalData.userInfo.nickName + "邀请你来使用";
+        return {
+          title: '嗨的不行',
+          desc: desc,
+          path: path,
+        }
+    }
   },
   inputEnd:function(e){
     this.setData({
@@ -199,6 +215,10 @@ Page({
       method: 'POST',
       success: function (res) {
         console.log("add_action: " + res.data.actionId)
+        that.setData({
+          actionId: res.data.actionId
+        })
+        //that.onShareAppMessage();
       },
       fail: function () {
         console.log("add_action")
@@ -230,6 +250,10 @@ Page({
       success: function (res) {
         console.log("add_action_update: " + res.data)
         console.log("add_action_update: " + res.data.actionId)
+        that.setData({
+          actionId: res.data.actionId,
+        });
+        //that.onShareAppMessage();
       },
       fail: function () {
         console.log("add_action")

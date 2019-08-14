@@ -227,6 +227,23 @@ Page({
 
   deleteMetting: function () {
     var that = this;
+    wx.showModal({
+      title: '删除',
+      content: '是否删除该活动',
+      success(res) {
+        if (res.confirm) {
+          that.deleteAciton();
+        } else if (res.cancel) {
+          
+        }
+      }
+    });
+
+    
+  },
+
+  deleteAciton:function(){
+    var that = this;
     wx.request({
       url: 'http://149.28.31.199/update_action.php',
       data: {
@@ -248,10 +265,9 @@ Page({
       }
     })
     wx.navigateBack({
-      
+    
     })
   },
-
 
   onTapBack: function () {
     wx.navigateBack({
@@ -259,11 +275,12 @@ Page({
   },
 
   openLocation: function() {
+    var that = this;
     wx.openLocation({
-      longitude:this.data.longitude,
-      latitude: this.data.latitude,
-      name: this.data.actionPosName,
-      address: this.data.actionPosDec,
+      longitude:  Number(that.data.longitude),
+      latitude:  Number(that.data.latitude),
+      name: that.data.actionPosName,
+      address: that.data.actionPosDec,
     })
   }
 })
